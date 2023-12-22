@@ -8,7 +8,7 @@
     background-color: #1C1C21;
 }
 
-.app-header__nav {
+.nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,16 +16,16 @@
     width: 1280px;
 }
 
-.app-header__nav-wrapper {
+.nav-wrapper {
     display: flex;
 
     width: 495px;
 }
-.app-header__nav-wrapper:last-of-type{
+.nav-wrapper:last-of-type{
     justify-content:flex-end;
 }
 
-.app-header__nav-item {
+.nav-item {
     display: flex;
     align-items: center;
 
