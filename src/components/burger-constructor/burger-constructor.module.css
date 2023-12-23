@@ -1,0 +1,17 @@
+.content {
+    display: grid;
+    grid-row-gap: 16px;
+
+    padding-right: 0px;
+    margin-right: -12px;
+
+    height: calc(100vh - (52px + 64px + 40px + 2*80px + 100px + 88px));
+
+    overflow-x: hidden;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

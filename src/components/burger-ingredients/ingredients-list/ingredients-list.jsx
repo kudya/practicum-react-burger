@@ -6,7 +6,7 @@ import IngredientCard from "./ingredient-card/ingredient-card";
 
 const IngredientsList = ({ingredients, title}) => {
     return (
-        <div className={ingredientsListStyles.container}>
+        <div>
             <h3 className="text text_type_main-medium">{title}</h3>
 
             <ul className={`${ingredientsListStyles.list} pt-6 pr-4 pb-10 pl-4`}>

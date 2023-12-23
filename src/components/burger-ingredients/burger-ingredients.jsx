@@ -1,52 +1,13 @@
 import {useState, useEffect} from 'react';
+// import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css'
-import {ingredientsData} from "../../utils/data";
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from "./ingredients-list/ingredients-list";
 
-// import PropTypes from 'prop-types';
 
-const INGREDIENT_TYPES = {
-    bun: 'bun',
-    sauce: 'sauce',
-    main: 'main',
-}
-
-const BurgerIngredients = () => {
+const BurgerIngredients = ({ingredients}) => {
     const [currentTab, setCurrentTab] = useState('bun')
-    const [ingredients, setIngredients] = useState({
-        buns: [],
-        sauces: [],
-        mains: [],
-    })
-
-    useEffect(() => {
-        let buns = [];
-        let sauces = [];
-        let mains = [];
-
-        ingredientsData.forEach((ingredient) => {
-            switch (ingredient.type) {
-                case INGREDIENT_TYPES.bun:
-                    buns.push(ingredient)
-                    break;
-
-                case INGREDIENT_TYPES.sauce:
-                    sauces.push(ingredient)
-                    break;
-
-                case INGREDIENT_TYPES.main:
-                    mains.push(ingredient)
-                    break;
-
-                default:
-                    break;
-            }
-        })
-
-        setIngredients({buns, sauces, mains});
-    }, [])
 
     return (
         <section className={burgerIngredientsStyles.wrapper}>
