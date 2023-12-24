@@ -19,10 +19,9 @@ const BurgerConstructor = ({order}) => {
             <div className="mb-10 pl-4">
                 <div className="pl-8 mb-4">
                     <ConstructorElement
-                        className=""
                         type="top"
                         isLocked={true}
-                        text={order.bun.name}
+                        text={`${order.bun.name} (верх)`}
                         price={order.bun.price}
                         thumbnail={order.bun.image}
                     />
@@ -50,7 +49,7 @@ const BurgerConstructor = ({order}) => {
                     <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text={order.bun.name}
+                        text={`${order.bun.name} (низ)`}
                         price={order.bun.price}
                         thumbnail={order.bun.image}
                     />

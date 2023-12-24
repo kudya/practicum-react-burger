@@ -48,7 +48,18 @@ const App = () => {
             let mains = [];
 
             const res = await fetch(INGREDIENTS_URL);
-            const { data } = await res.json();
+
+            let json;
+
+            if (res.ok) {
+                json = await res.json()
+            } else {
+                setError(res.status)
+                setStatus(STATUS.failed);
+                return;
+            }
+
+            const { data } = json;
 
             data.forEach((ingredient) => {
                 switch (ingredient.type) {
@@ -80,8 +91,6 @@ const App = () => {
         } catch (e) {
             setStatus(STATUS.failed);
             setError(e.message);
-            setError(null);
-
         }
     }
 
