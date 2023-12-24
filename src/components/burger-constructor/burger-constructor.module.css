@@ -1,0 +1,29 @@
+.list {
+    display: grid;
+    grid-row-gap: 16px;
+    overflow: auto;
+
+    height: calc(100vh - (52px + 64px + 40px + 2*80px + 100px + 88px));
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
