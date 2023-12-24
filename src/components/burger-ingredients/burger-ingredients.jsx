@@ -1,16 +1,16 @@
-import {useState, useEffect} from 'react';
-// import PropTypes from 'prop-types';
+import {useState} from 'react';
+import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css'
+import { ingredientPropTypes } from '../../utils/propTypes'
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from "./ingredients-list/ingredients-list";
-
 
 const BurgerIngredients = ({ingredients}) => {
     const [currentTab, setCurrentTab] = useState('bun')
 
     return (
-        <section className={burgerIngredientsStyles.wrapper}>
+        <section>
             <h2 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h2>
 
             <div className={`${burgerIngredientsStyles.tabs} mb-10`}>
@@ -39,8 +39,12 @@ const BurgerIngredients = ({ingredients}) => {
     );
 };
 
-// BurgerIngredients.propTypes = {
-//
-// };
+BurgerIngredients.propTypes = {
+    ingredients: PropTypes.shape({
+        buns: PropTypes.arrayOf(ingredientPropTypes),
+        sauces: PropTypes.arrayOf(ingredientPropTypes),
+        mains: PropTypes.arrayOf(ingredientPropTypes),
+    })
+};
 
 export default BurgerIngredients;

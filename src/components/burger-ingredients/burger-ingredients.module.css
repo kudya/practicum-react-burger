@@ -3,6 +3,7 @@
 }
 
 .content {
-    height: calc(100vh - 196px - 88px);
     overflow: auto;
+
+    height: calc(100vh - 196px - 88px);
 }
