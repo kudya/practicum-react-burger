@@ -1,0 +1,9 @@
+.tabs {
+    display: flex;
+}
+
+.content {
+    overflow: auto;
+
+    height: calc(100vh - 196px - 88px);
+}
