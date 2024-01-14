@@ -1,129 +1,46 @@
-import {useEffect, useState} from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import appStyles from './app.module.css';
+import { loadIngredients } from '../../services/actions/ingredients';
+import { clearIngredients } from '../../services/reducers/ingredients';
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
-const INGREDIENTS_URL = 'https://norma.nomoreparties.space/api/ingredients';
-
-const STATUS = {
-    idle: 'idle',
-    loading: 'loading',
-    succeeded: 'succeeded',
-    failed: 'failed',
-}
-
-const INGREDIENT_TYPES = {
-    bun: 'bun',
-    sauce: 'sauce',
-    main: 'main',
-}
-
 const App = () => {
-    const [status, setStatus] = useState(STATUS.idle)
-    const [error, setError] = useState(null)
-    const [ingredients, setIngredients] = useState({
-        buns: [],
-        sauces: [],
-        mains: [],
-    })
-    const [order, setOrder] = useState({bun: {}, content: []})
+    const dispatch = useDispatch();
+
+    const { ingredients, loading, error } = useSelector(store => store.ingredients);
 
     useEffect(() => {
-        getIngredientsData();
+        dispatch(loadIngredients());
 
         return () => {
-            clear();
+            dispatch(clearIngredients());
         }
     }, [])
 
-    const getIngredientsData = async () => {
-        try {
-            setError(null);
-            setStatus(STATUS.loading);
+    return (
+        <div className={appStyles.page}>
+            <AppHeader />
 
-            let buns = [];
-            let sauces = [];
-            let mains = [];
-
-            const res = await fetch(INGREDIENTS_URL);
-
-            let json;
-
-            if (res.ok) {
-                json = await res.json()
-            } else {
-                setError(res.status)
-                setStatus(STATUS.failed);
-                return;
-            }
-
-            const { data } = json;
-
-            data.forEach((ingredient) => {
-                switch (ingredient.type) {
-                    case INGREDIENT_TYPES.bun:
-                        buns.push(ingredient);
-                        break;
-
-                    case INGREDIENT_TYPES.sauce:
-                        sauces.push(ingredient);
-                        break;
-
-                    case INGREDIENT_TYPES.main:
-                        mains.push(ingredient);
-                        break;
-
-                    default:
-                        break;
-                }
-            })
-
-            setIngredients({buns, sauces, mains});
-
-            setOrder({
-                bun: data[0],
-                content: data.slice(1, -1),
-            })
-
-            setStatus(STATUS.succeeded);
-        } catch (e) {
-            setStatus(STATUS.failed);
-            setError(e.message);
-        }
-    }
-
-    const clear = () => {
-        setStatus(STATUS.idle);
-        setError(null);
-        setIngredients({
-            buns: [],
-            sauces: [],
-            mains: [],
-        });
-        setOrder({bun: {}, content: []});
-    }
-
-
-  return (
-    <div className={appStyles.page}>
-        <AppHeader />
-
-        <main className={appStyles.content}>
-            { status === STATUS.loading || status === STATUS.failed ? (
-                <p>
-                    {status === STATUS.loading ? 'Загрузка...' : 'Произошла ошибка при загрузке данных'}
-                </p>
-            ) : (
-                <>
-                    <BurgerIngredients ingredients={ingredients} />
-                    <BurgerConstructor order={order} />
-                </>
-            )}
-        </main>
-    </div>
-  );
+            <main className={appStyles.content}>
+                { loading || error ? (
+                    <p>
+                        {loading ? 'Загрузка...' : 'Произошла ошибка при загрузке данных'}
+                    </p>
+                ) : (
+                    <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients ingredients={ingredients} />
+                        <BurgerConstructor />
+                    </DndProvider>
+                )}
+            </main>
+        </div>
+    );
 }
 
 export default App;
