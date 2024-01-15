@@ -25,7 +25,7 @@ const IngredientCard = ({ingredient, count, onCardClick}) => {
                 <Counter count={count} size="default" />
             )}
 
-            <img className="mb-1" src={ingredient.image} alt="ингредиент бургера" />
+            <img className="mb-1" src={ingredient.image} alt={`${ingredient.name ?? 'Ингредиент бургера'}.`} />
 
             <div className={`${ingredientCardStyles.price} mb-1`}>
                 <p className="text text_type_digits-default mr-2">{ingredient.price}</p>

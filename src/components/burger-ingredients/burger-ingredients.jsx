@@ -1,8 +1,6 @@
 import {useMemo, useState, useEffect, useRef} from 'react';
 import {useSelector} from "react-redux";
-import PropTypes from 'prop-types';
 import burgerIngredientsStyles from './burger-ingredients.module.css'
-import { ingredientPropTypes } from '../../utils/propTypes'
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from "./ingredients-list/ingredients-list";
@@ -13,7 +11,10 @@ const INGREDIENT_TYPES = {
     main: 'main',
 }
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
+    const { ingredients } = useSelector(store => store.ingredients)
+    const { bun: constructorBun, ingredients: constructorIngredients } = useSelector(store => store.burgerConstructor)
+
     const tabsRef = useRef();
     const bunsRef = useRef();
     const saucesRef = useRef();
@@ -56,8 +57,6 @@ const BurgerIngredients = ({ingredients}) => {
 
         setCurrentTab(tab.code);
     };
-
-    const { bun: constructorBun, ingredients: constructorIngredients } = useSelector(store => store.burgerConstructor)
 
     const ingredientsCounter = useMemo(()  => {
         if (constructorIngredients.length) {
@@ -125,10 +124,6 @@ const BurgerIngredients = ({ingredients}) => {
 
         </section>
     );
-};
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropTypes)
 };
 
 export default BurgerIngredients;

@@ -13,7 +13,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 const App = () => {
     const dispatch = useDispatch();
 
-    const { ingredients, loading, error } = useSelector(store => store.ingredients);
+    const { loading, error } = useSelector(store => store.ingredients);
 
     useEffect(() => {
         dispatch(loadIngredients());
@@ -34,7 +34,7 @@ const App = () => {
                     </p>
                 ) : (
                     <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients ingredients={ingredients} />
+                        <BurgerIngredients />
                         <BurgerConstructor />
                     </DndProvider>
                 )}

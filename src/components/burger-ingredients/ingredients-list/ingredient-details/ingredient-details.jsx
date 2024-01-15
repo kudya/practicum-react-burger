@@ -6,7 +6,7 @@ const IngredientDetails = () => {
 
     return (
         <div className={`${ingredientDetailsStyles.container} pr-15 pb-5 pl-15`}>
-            <img className="mb-4" width="480" height="240" src={ingredient?.image_large} alt="ингредиент бургера" />
+            <img className="mb-4" width="480" height="240" src={ingredient?.image_large} alt={`${ingredient?.name ?? 'Ингредиент бургера'}.`} />
 
             <p className="text text_type_main-medium mb-8">{ingredient?.name}</p>
 

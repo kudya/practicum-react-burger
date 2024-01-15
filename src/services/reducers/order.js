@@ -42,4 +42,3 @@ const orderSlice = createSlice({
 });
 
 export const orderReducer = orderSlice.reducer;
-// export const { clearIngredients } = ingredientsSlice.actions;

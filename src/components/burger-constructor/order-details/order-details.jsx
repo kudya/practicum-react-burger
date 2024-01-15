@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import orderDetailsStyles from './order-details.module.css'
-import { makeOrder} from '../../../services/actions/order';
+import { makeOrder } from '../../../services/actions/order';
+import { clearConstructor } from '../../../services/reducers/burgerConstructor';
 
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -13,18 +14,18 @@ const OrderDetails = () => {
 
     useEffect(() => {
         if (bun && ingredients.length) {
-
-            dispatch(makeOrder(collectOrder()));
+            dispatch(makeOrder(collectOrder()))
+                .then(res => res.payload.success && dispatch(clearConstructor()));
         }
     }, [])
 
     const collectOrder = () => {
-        const burgerIngredientsId = ingredients.map(ingredient => ingredient._id);
+        const burgerIngredientsIds = ingredients.map(ingredient => ingredient._id);
 
-        burgerIngredientsId.unshift(bun._id);
-        burgerIngredientsId.push(bun._id);
+        burgerIngredientsIds.unshift(bun._id);
+        burgerIngredientsIds.push(bun._id);
 
-        return burgerIngredientsId;
+        return burgerIngredientsIds;
     }
 
     return (

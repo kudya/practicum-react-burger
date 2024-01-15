@@ -109,7 +109,8 @@ const BurgerConstructor = () => {
                     type="primary"
                     size="large"
                     onClick={onButtonClick}
-                    disabled={!(bun && ingredients.length)}>
+                    disabled={!(bun && ingredients.length)}
+                >
                     Оформить заказ
                 </Button>
 
