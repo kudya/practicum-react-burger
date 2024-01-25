@@ -6,9 +6,3 @@
   background-color: #131316;
   min-height: 100vh;
 }
-
-.content {
-  display: grid;
-  grid-template-columns: 600px 600px;
-  grid-column-gap: 40px;
-}

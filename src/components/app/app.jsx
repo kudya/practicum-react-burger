@@ -1,44 +1,19 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import appStyles from './app.module.css';
-import { loadIngredients } from '../../services/actions/ingredients';
-import { clearIngredients } from '../../services/reducers/ingredients';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { Routes, Route } from 'react-router-dom';
 
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import AppHeader from '../app-header/app-header';
+import HomePage from '../../pages/home-page/home-page';
+import LoginPage from '../../pages/login-page/login-page';
 
 const App = () => {
-    const dispatch = useDispatch();
-
-    const { loading, error } = useSelector(store => store.ingredients);
-
-    useEffect(() => {
-        dispatch(loadIngredients());
-
-        return () => {
-            dispatch(clearIngredients());
-        }
-    }, [])
-
     return (
         <div className={appStyles.page}>
             <AppHeader />
 
-            <main className={appStyles.content}>
-                { loading || error ? (
-                    <p>
-                        {loading ? 'Загрузка...' : 'Произошла ошибка при загрузке данных'}
-                    </p>
-                ) : (
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </DndProvider>
-                )}
-            </main>
+            <Routes>
+                <Route path={'/'} element={<HomePage />} />
+                <Route path={'/login'} element={<LoginPage />} />
+            </Routes>
         </div>
     );
 }
