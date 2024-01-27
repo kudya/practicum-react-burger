@@ -1,5 +1,8 @@
-import appStyles from './app.module.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import appStyles from './app.module.css';
+import { getUser } from '../../services/actions/auth';
 
 import AppHeader from '../app-header/app-header';
 import HomePage from '../../pages/home-page/home-page';
@@ -12,8 +15,15 @@ import IngredientDetails from "../burger-ingredients/ingredients-list/ingredient
 import Modal from '../modal/modal';
 
 const App = () => {
+    const dispatch = useDispatch()
+
     const location = useLocation();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(getUser());
+    }, [])
+
     const background = location.state && location.state.background;
 
     const onModalClose = () => {

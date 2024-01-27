@@ -1,17 +1,11 @@
-const BASE_URL = 'https://norma.nomoreparties.space/api';
+import { checkResponse,  BASE_URL} from './helpers';
 
-const getResponse = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-
-    return Promise.reject(`Ошибка ${res.status}`);
-};
-
+// Получение списка ингредиентов
 export const getIngredients = () => {
-    return fetch(`${BASE_URL}/ingredients`).then(getResponse);
+    return fetch(`${BASE_URL}/ingredients`).then(checkResponse);
 };
 
+// Создание заказа
 export const makeOrderRequest = (burgerIngredientsIds) => {
     return fetch(`${BASE_URL}/orders`, {
         method: "POST",
@@ -19,8 +13,6 @@ export const makeOrderRequest = (burgerIngredientsIds) => {
         body: JSON.stringify({
             ingredients: burgerIngredientsIds,
         }),
-    }).then(getResponse);
+    }).then(checkResponse);
 };
-
-
 

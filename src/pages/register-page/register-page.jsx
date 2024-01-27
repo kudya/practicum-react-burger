@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import registerPageStyles from './register-page.module.css';
+import useForm from '../../utils/hooks/useForm';
+import { setUser } from '../../services/actions/auth';
 
 import {
     Input,
@@ -8,48 +10,50 @@ import {
     Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-
 const RegisterPage = () => {
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const dispatch = useDispatch();
 
-    const onNameChange = e => setName(e.target.value)
-    const onEmailChange = e => setEmail(e.target.value)
-    const onPasswordChange = e => setPassword(e.target.value)
+    const [form, onChangeForm] = useForm();
+
+    const onRegister = (e) => {
+        e.preventDefault();
+        dispatch(setUser(form))
+    };
+
     return (
         <div className={registerPageStyles.container}>
             <h2 className="text text_type_main-medium mb-6">
                 Регистрация
             </h2>
 
-            <Input
-                value={name}
-                placeholder={'Имя'}
-                extraClass="mb-6"
-                onChange={onNameChange}
-            />
+            <form className={`${registerPageStyles.form} mb-20`} onSubmit={onRegister}>
+                <Input
+                    value={form.name}
+                    placeholder={'Имя'}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'name')}
+                />
 
-            <EmailInput
-                value={email}
-                extraClass="mb-6"
-                onChange={onEmailChange}
-            />
+                <EmailInput
+                    value={form.email}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'email')}
+                />
 
-            <PasswordInput
-                value={password}
-                extraClass="mb-6"
-                onChange={onPasswordChange}
-            />
+                <PasswordInput
+                    value={form.password}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'password')}
+                />
 
-            <Button
-                htmlType="button"
-                type="primary"
-                size="medium"
-                extraClass="mb-20"
-            >
-                Зарегистрироваться
-            </Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                >
+                    Зарегистрироваться
+                </Button>
+            </form>
 
             <p className="text text_type_main-default text_color_inactive">
                 Уже зарегистрированы? Войти

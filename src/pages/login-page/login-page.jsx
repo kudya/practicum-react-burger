@@ -1,41 +1,48 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import loginPageStyles from './login-page.module.css';
+import useForm from '../../utils/hooks/useForm';
+import { login } from '../../services/actions/auth';
 
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const LoginPage = () => {
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
+    const dispatch = useDispatch();
 
-    const onEmailChange = e => setEmail(e.target.value)
-    const onPasswordChange = e => setPassword(e.target.value)
+    const [form, onChangeForm] = useForm();
+
+    const onLogin = (e) => {
+        e.preventDefault();
+        dispatch(login(form))
+    };
+
     return (
         <div className={loginPageStyles.container}>
             <h2 className="text text_type_main-medium mb-6">
                 Вход
             </h2>
 
-            <EmailInput
-                value={email}
-                extraClass="mb-6"
-                onChange={onEmailChange}
-            />
+            <form className={`${loginPageStyles.form} mb-20`} onSubmit={onLogin}>
+                <EmailInput
+                    value={form.email}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'email')}
+                />
 
-            <PasswordInput
-                value={password}
-                extraClass="mb-6"
-                onChange={onPasswordChange}
-            />
+                <PasswordInput
+                    value={form.password}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'password')}
+                />
 
-            <Button
-                htmlType="button"
-                type="primary"
-                size="medium"
-                extraClass="mb-20"
-            >
-                Вход
-            </Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                >
+                    Вход
+                </Button>
+            </form>
 
             <p className="text text_type_main-default text_color_inactive mb-4">
                 Вы — новый пользователь? Зарегистрироваться
