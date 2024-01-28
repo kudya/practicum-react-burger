@@ -1,4 +1,4 @@
-import { checkResponse,  BASE_URL} from './helpers';
+import {BASE_URL, checkResponse, fetchWithRefresh} from './helpers';
 
 // Получение списка ингредиентов
 export const getIngredients = () => {
@@ -7,9 +7,12 @@ export const getIngredients = () => {
 
 // Создание заказа
 export const makeOrderRequest = (burgerIngredientsIds) => {
-    return fetch(`${BASE_URL}/orders`, {
+    return fetchWithRefresh(`${BASE_URL}/orders`, {
         method: "POST",
-        headers: {"Content-Type": "application/json",},
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem('accessToken'),
+        },
         body: JSON.stringify({
             ingredients: burgerIngredientsIds,
         }),

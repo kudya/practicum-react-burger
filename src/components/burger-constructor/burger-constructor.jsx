@@ -1,7 +1,9 @@
 import { useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import burgerConstructorStyles from './burger-constructor.module.css'
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
+import burgerConstructorStyles from './burger-constructor.module.css'
+
 import { setBun, addIngredient, changeElementsOrder } from '../../services/reducers/burgerConstructor';
 
 import {CurrencyIcon, Button, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,8 +15,13 @@ import DraggableConstructorElement from './draggable-constructor-element/draggab
 const BurgerConstructor = () => {
     const dispatch = useDispatch();
 
+    const { user } = useSelector(store => store.auth)
     const { bun, ingredients } = useSelector(store => store.burgerConstructor)
+
     const [modalVisible, setModalVisible] = useState(false);
+
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const totalPrice = useMemo(()  => {
         if (bun || ingredients.length) {
@@ -43,7 +50,14 @@ const BurgerConstructor = () => {
         dispatch(changeElementsOrder({dragIndex, hoverIndex}));
     }, [])
 
-    const onButtonClick = () => setModalVisible(true);
+    const onButtonClick = () => {
+        console.log(location)
+        if (!user) {
+            navigate('/login')
+        }
+
+        setModalVisible(true);
+    }
 
     const onModalClose = () => setModalVisible(false);
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, NavLink} from 'react-router-dom';
 import appHeaderStyles from './app-header.module.css';
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -28,12 +29,17 @@ const AppHeader = () => {
                     </NavItem>
                 </div>
 
-                <Logo/>
+                <Link to='/'>
+                    <Logo/>
+                </Link>
+
 
                 <div className={appHeaderStyles['nav-wrapper']}>
-                    <NavItem text="Лента заказов" textStyle="text_color_inactive">
-                        <ProfileIcon type="secondary"/>
-                    </NavItem>
+                    <NavLink className={appHeaderStyles.link} to='/profile'>
+                        <NavItem text="Личный кабинет" textStyle="text_color_inactive">
+                            <ProfileIcon type="secondary"/>
+                        </NavItem>
+                    </NavLink>
                 </div>
             </nav>
         </header>

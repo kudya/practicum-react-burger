@@ -11,3 +11,9 @@
     flex-direction: column;
     align-items: center;
 }
+
+.link {
+    text-decoration: none;
+
+    color: var(--colors-interface-accent);
+}

@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import registerPageStyles from './register-page.module.css';
 import useForm from '../../utils/hooks/useForm';
-import { setUser } from '../../services/actions/auth';
+import { registerUser } from '../../services/actions/auth';
 
 import {
     Input,
@@ -13,11 +14,15 @@ import {
 const RegisterPage = () => {
     const dispatch = useDispatch();
 
-    const [form, onChangeForm] = useForm();
+    const { form, onChangeForm } = useForm({
+        name: '',
+        email: '',
+        password: '',
+    });
 
     const onRegister = (e) => {
         e.preventDefault();
-        dispatch(setUser(form))
+        dispatch(registerUser(form))
     };
 
     return (
@@ -56,7 +61,7 @@ const RegisterPage = () => {
             </form>
 
             <p className="text text_type_main-default text_color_inactive">
-                Уже зарегистрированы? Войти
+                Уже зарегистрированы? <Link className={registerPageStyles.link}  to="/login">Войти</Link>
             </p>
         </div>
     );

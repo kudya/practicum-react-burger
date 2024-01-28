@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+
+    width: 480px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+}

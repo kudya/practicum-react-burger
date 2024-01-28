@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { setUser, login, getUser } from '../actions/auth';
+import { registerUser, login, logout } from '../actions/auth';
 
 const initialState = {
     user: null,
@@ -11,20 +11,27 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
+    reducers: {
+        setAuthChecked: (state, action) => {
+            state.isAuthChecked = action.payload;
+        },
+        setUser: (state, action) => {
+        state.user = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
-            .addCase(setUser.pending, (state) => {
+            .addCase(registerUser.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(setUser.rejected, (state, action) => {
+            .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            .addCase(setUser.fulfilled, (state, action) => {
+            .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
                 state.user = action.payload;
-
             })
             .addCase(login.pending, (state) => {
                 state.loading = true;
@@ -38,19 +45,20 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload;
             })
-            .addCase(getUser.pending, (state) => {
+            .addCase(logout.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(getUser.rejected, (state, action) => {
+            .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
-            .addCase(getUser.fulfilled, (state, action) => {
+            .addCase(logout.fulfilled, (state) => {
                 state.loading = false;
-                state.user = action.payload;
+                state.user = null;
             })
     }
 })
 
 export const authReducer = authSlice.reducer;
+export const { setAuthChecked, setUser } = authSlice.actions;

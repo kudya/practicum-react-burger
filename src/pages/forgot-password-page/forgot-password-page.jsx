@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import forgotPasswordPageStyles from './forgot-password-page.module.css';
+import useForm from '../../utils/hooks/useForm';
 
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const ForgotPasswordPage = () => {
-    const [email, setEmail] = useState(null);
+    const {form, onChangeForm} = useForm({email: ''});
 
-    const onEmailChange = e => setEmail(e.target.value)
+    const onRestore = () => {};
 
     return (
         <div className={forgotPasswordPageStyles.container}>
@@ -15,24 +16,25 @@ const ForgotPasswordPage = () => {
                 Восстановление пароля
             </h2>
 
-            <EmailInput
-                value={email}
-                placeholder={'Укажите e-mail'}
-                extraClass="mb-6"
-                onChange={onEmailChange}
-            />
+            <form className={`${forgotPasswordPageStyles.form} mb-20`} onSubmit={onRestore}>
+                <EmailInput
+                    value={form.email}
+                    placeholder={'Укажите e-mail'}
+                    extraClass="mb-6"
+                    onChange={(e) => onChangeForm(e, 'email')}
+                />
 
-            <Button
-                htmlType="button"
-                type="primary"
-                size="medium"
-                extraClass="mb-20"
-            >
-                Восстановить
-            </Button>
+                <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                >
+                    Восстановить
+                </Button>
+            </form>
 
             <p className="text text_type_main-default text_color_inactive">
-                Вспомнили пароль? Войти
+                Вспомнили пароль? <Link className={forgotPasswordPageStyles.link}  to="/login">Войти</Link>
             </p>
         </div>
     );

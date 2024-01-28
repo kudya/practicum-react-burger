@@ -15,7 +15,7 @@ const OrderDetails = () => {
     useEffect(() => {
         if (bun && ingredients.length) {
             dispatch(makeOrder(collectOrder()))
-                .then(res => res.payload.success && dispatch(clearConstructor()));
+                .then(() => dispatch(clearConstructor()));
         }
     }, [])
 

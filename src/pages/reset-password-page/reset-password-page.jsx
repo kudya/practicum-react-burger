@@ -1,15 +1,11 @@
-import { useState } from 'react';
 import resetPasswordPageStyles from './reset-password-page.module.css';
+import useForm from '../../utils/hooks/useForm';
 
 import {Button, PasswordInput, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 
 
 const ResetPasswordPage = () => {
-    const [password, setPassword] = useState(null);
-    const [code, setCode] = useState(null);
-
-    const onPasswordChange = e => setPassword(e.target.value)
-    const onCodeChange = e => setCode(e.target.value)
+    const {form, onChangeForm} = useForm({password: '', code: ''});
 
     return (
         <div className={resetPasswordPageStyles.container}>
@@ -18,16 +14,16 @@ const ResetPasswordPage = () => {
             </h2>
 
             <PasswordInput
-                value={password}
+                value={form.password}
                 extraClass="mb-6"
-                onChange={onPasswordChange}
+                onChange={(e) => onChangeForm(e, 'password')}
             />
 
             <Input
-                value={code}
+                value={form.code}
                 placeholder={'Имя'}
                 extraClass="mb-6"
-                onChange={onCodeChange}
+                onChange={(e) => onChangeForm(e, 'code')}
             />
 
             <Button
