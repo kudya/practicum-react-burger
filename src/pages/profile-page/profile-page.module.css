@@ -24,7 +24,7 @@
 }
 
 .current-tab {
-    color: white;
+    color: var(--text-primary-color);
 }
 
 .button {

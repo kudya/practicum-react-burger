@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ordersStyles from './orders.module.css'
 
 const Orders = ()=> {
@@ -18,10 +17,6 @@ const Orders = ()=> {
             </p>
         </div>
     );
-};
-
-Orders.propTypes = {
-
 };
 
 export default Orders;

@@ -51,7 +51,6 @@ const BurgerConstructor = () => {
     }, [])
 
     const onButtonClick = () => {
-        console.log(location)
         if (!user) {
             navigate('/login')
         }

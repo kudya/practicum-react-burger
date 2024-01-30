@@ -73,4 +73,34 @@ export const logoutUser = () => {
     }).then(checkResponse);
 }
 
+export const sendEmailToResetPassword = ({email}) => {
+    return fetch(`${BASE_URL}/password-reset`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email})
+    }).then(checkResponse)
+        .then((res) => {
+            localStorage.setItem('isResetPassCodeSent', true);
+            return {success: true};
+        })
+        .catch(() => ({success: false}));
+}
+
+export const resetPassword = ({password, code}) => {
+    return fetch(`${BASE_URL}/password-reset/reset`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({password, token: code})
+    }).then(checkResponse)
+        .then(() => {
+            localStorage.removeItem('isResetPassCodeSent');
+            return {success: true};
+        })
+        .catch(() => ({success: false}));
+}
+
 

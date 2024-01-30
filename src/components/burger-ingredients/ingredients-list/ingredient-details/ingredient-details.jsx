@@ -2,9 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
-import {clearIngredientInfo, loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
+import {loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
 import { loadIngredients } from '../../../../services/actions/ingredients';
-import { clearIngredients } from '../../../../services/reducers/ingredients';
 
 const IngredientDetails = () => {
     const { ingredients } = useSelector(store => store.ingredients)
