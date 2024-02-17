@@ -1,8 +1,33 @@
-import { useSelector } from "react-redux";
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
+import {loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
+import { loadIngredients } from '../../../../services/actions/ingredients';
 
 const IngredientDetails = () => {
+    const { ingredients } = useSelector(store => store.ingredients)
     const { ingredient } = useSelector(store => store.ingredientInfo);
+
+    const dispatch = useDispatch();
+
+    const { id } = useParams();
+    const location = useLocation();
+
+    useEffect(() => {
+        const isModal = location.state && location.state.background;
+
+        if (!isModal && !ingredients.length) {
+            dispatch(loadIngredients());
+        }
+    }, [])
+
+    useEffect(() => {
+        if (ingredients.length) {
+            const currentIngredient = ingredients.find(ingredient => ingredient._id === id);
+            dispatch(loadIngredientInfo(currentIngredient))
+        }
+    }, [ingredients.length])
 
     return (
         <div className={`${ingredientDetailsStyles.container} pr-15 pb-5 pl-15`}>

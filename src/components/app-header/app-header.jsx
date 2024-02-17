@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import appHeaderStyles from './app-header.module.css';
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
@@ -19,9 +20,14 @@ const AppHeader = () => {
         <header className={`${appHeaderStyles['app-header']} pt-4 pb-4`}>
             <nav className={appHeaderStyles['nav']}>
                 <div className={appHeaderStyles['nav-wrapper']}>
-                    <NavItem text="Конструктор">
-                        <BurgerIcon type='primary'/>
-                    </NavItem>
+                    <NavLink className={appHeaderStyles.link} to="/">
+                        {({isActive}) => (
+                            <NavItem text="Конструктор"  textStyle={isActive ? '' : 'text_color_inactive'}>
+                                <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+                            </NavItem>
+                            )
+                        }
+                    </NavLink>
 
                     <NavItem text="Лента заказов" textStyle="text_color_inactive">
                         <ListIcon type='secondary'/>
@@ -31,9 +37,13 @@ const AppHeader = () => {
                 <Logo/>
 
                 <div className={appHeaderStyles['nav-wrapper']}>
-                    <NavItem text="Лента заказов" textStyle="text_color_inactive">
-                        <ProfileIcon type="secondary"/>
-                    </NavItem>
+                    <NavLink className={appHeaderStyles.link} to='/profile'>
+                        {({isActive}) => (
+                            <NavItem text="Личный кабинет" textStyle={isActive ? '' : 'text_color_inactive'}>
+                                <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+                            </NavItem>
+                        )}
+                    </NavLink>
                 </div>
             </nav>
         </header>

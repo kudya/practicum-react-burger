@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd'
 import ingredientCardStyles from './ingredient-card.module.css'
@@ -7,6 +8,8 @@ import { ingredientPropTypes } from '../../../../utils/propTypes'
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const IngredientCard = ({ingredient, count, onCardClick}) => {
+    const location = useLocation();
+
     const [{ isDragging }, dragRef] = useDrag(() => ({
         type: 'ingredient',
         item: {...ingredient},
@@ -19,7 +22,11 @@ const IngredientCard = ({ingredient, count, onCardClick}) => {
 
     return (
         <li ref={dragRef} style={{ opacity }} className={ingredientCardStyles.ingredient}>
-            <button className={ingredientCardStyles.button} onClick={() => onCardClick(ingredient)}/>
+            <Link
+                className={ingredientCardStyles.button}
+                to={`/ingredients/${ingredient._id}`}
+                state={{background: location}}
+            />
 
             {count && (
                 <Counter count={count} size="default" />

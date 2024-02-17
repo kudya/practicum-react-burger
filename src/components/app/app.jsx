@@ -1,44 +1,68 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from './app.module.css';
-import { loadIngredients } from '../../services/actions/ingredients';
-import { clearIngredients } from '../../services/reducers/ingredients';
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
+import { checkUserAuth } from '../../services/actions/auth';
 
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import AppHeader from '../app-header/app-header';
+import HomePage from '../../pages/home-page/home-page';
+import LoginPage from '../../pages/login-page/login-page';
+import RegisterPage from '../../pages/register-page/register-page';
+import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password-page';
+import ResetPasswordPage from '../../pages/reset-password-page/reset-password-page';
+import ProfilePage from '../../pages/profile-page/profile-page';
+import NotFound404Page from '../../pages/not-found-404-page/not-found-404-page';
+import IngredientDetails from '../burger-ingredients/ingredients-list/ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+import Profile from '../profile/profile';
+import { OnlyAuth, OnlyUnAuth} from '../protected-route-element/protected-route-element';
+import Orders from "../orders/orders";
 
 const App = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const { loading, error } = useSelector(store => store.ingredients);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(loadIngredients());
-
-        return () => {
-            dispatch(clearIngredients());
-        }
+        dispatch(checkUserAuth());
     }, [])
+
+    const background = location.state && location.state.background;
+
+    const onModalClose = () => {
+        navigate(-1);
+    };
+
+    const IngredientDetailsModal = () => (
+        <Modal title="Детали ингредиента" onClose={onModalClose} >
+            <IngredientDetails />
+        </Modal>
+    );
 
     return (
         <div className={appStyles.page}>
             <AppHeader />
 
-            <main className={appStyles.content}>
-                { loading || error ? (
-                    <p>
-                        {loading ? 'Загрузка...' : 'Произошла ошибка при загрузке данных'}
-                    </p>
-                ) : (
-                    <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                    </DndProvider>
-                )}
-            </main>
+            <Routes location={background || location}>
+                <Route path='/' element={<HomePage />} />
+                <Route path='/login' element={<OnlyUnAuth component={<LoginPage />} />} />
+                <Route path='/register' element={<OnlyUnAuth component={<RegisterPage />} />} />
+                <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
+                <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPasswordPage />} />} />
+                <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} >
+                    <Route exact path='' element={<Profile />} />
+                    <Route path='orders' element={<Orders />} />
+                </Route>
+                <Route path='/ingredients/:id' element={<IngredientDetails />} />
+                <Route path='*' element={<NotFound404Page />} />
+            </Routes>
+
+            {background && (
+                <Routes>
+                    <Route path='/ingredients/:id' element={<IngredientDetailsModal/>} />
+                </Routes>
+            )}
         </div>
     );
 }
