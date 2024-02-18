@@ -1,7 +1,7 @@
 import React from 'react';
 import ordersStyles from './orders.module.css'
 
-const Orders = ()=> {
+const Orders = (): React.JSX.Element => {
     return (
         <div className={`${ordersStyles.container} pt-30`}>
             <p className='text text_type_digits-medium mb-6'>

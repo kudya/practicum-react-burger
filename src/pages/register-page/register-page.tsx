@@ -1,3 +1,4 @@
+import React, {SyntheticEvent} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import registerPageStyles from './register-page.module.css';
@@ -11,17 +12,20 @@ import {
     Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const RegisterPage = () => {
+import {TAuthFormData} from '../../utils/types';
+
+const RegisterPage = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    const { form, onChangeForm } = useForm({
+    const { form, onChangeForm } = useForm<Pick<TAuthFormData, 'name' | 'email' | 'password'>>({
         name: '',
         email: '',
         password: '',
     });
 
-    const onRegister = (e) => {
+    const onRegister = (e: SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(registerUser(form))
     };
 

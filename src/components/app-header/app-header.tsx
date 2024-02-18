@@ -10,7 +10,7 @@ type TNavItemProps = {
     textStyle: string,
 }
 
-const AppHeader = () => {
+const AppHeader = (): React.JSX.Element => {
     const NavItem = ({children, text, textStyle}: TNavItemProps): React.JSX.Element => {
         return (
             <div className={`${appHeaderStyles['nav-item']} mr-2 pt-4 pr-5 pb-4 pl-5 `}>

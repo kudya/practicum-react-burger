@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, SyntheticEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import forgotPasswordPageStyles from './forgot-password-page.module.css';
 import useForm from '../../utils/hooks/useForm';
@@ -6,15 +6,16 @@ import { sendEmailToResetPassword } from '../../utils/api/auth-api';
 
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import {TAuthFormData} from '../../utils/types';
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordPage = (): React.JSX.Element => {
     const [ error, setError ] = useState(false);
 
     const navigate = useNavigate();
 
-    const {form, onChangeForm} = useForm({email: ''});
+    const {form, onChangeForm} = useForm<Pick<TAuthFormData, 'email'>>({email: ''});
 
-    const onRestore = async (e) => {
+    const onRestore = async (e: SyntheticEvent) => {
         e.preventDefault();
 
         setError(false)

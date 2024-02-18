@@ -14,3 +14,10 @@ export type TIngredientData = {
 }
 
 export type TConstructorIngredientData = TIngredientData & {key: string}
+
+export type TAuthFormData = {
+    name: string
+    email: string,
+    password: string,
+    code: string,
+}

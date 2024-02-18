@@ -7,15 +7,12 @@ import { login } from '../../services/actions/auth';
 
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-type TFormProps = {
-    email: string,
-    password: string,
-}
+import {TAuthFormData} from '../../utils/types';
 
 const LoginPage = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    const {form, onChangeForm} = useForm<TFormProps>({
+    const {form, onChangeForm} = useForm<Pick<TAuthFormData, 'email' | 'password'>>({
         email: '',
         password: '',
     });
