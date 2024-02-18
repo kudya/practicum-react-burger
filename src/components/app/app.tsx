@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from './app.module.css';
@@ -18,13 +18,14 @@ import Profile from '../profile/profile';
 import { OnlyAuth, OnlyUnAuth} from '../protected-route-element/protected-route-element';
 import Orders from "../orders/orders";
 
-const App = () => {
+const App = (): React.JSX.Element => {
     const dispatch = useDispatch()
 
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
+        // @ts-ignore
         dispatch(checkUserAuth());
     }, [])
 
@@ -51,6 +52,7 @@ const App = () => {
                 <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
                 <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPasswordPage />} />} />
                 <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} >
+                    {/* @ts-ignore */}
                     <Route exact path='' element={<Profile />} />
                     <Route path='orders' element={<Orders />} />
                 </Route>

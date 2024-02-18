@@ -1,3 +1,4 @@
+import React, {SyntheticEvent} from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import loginPageStyles from './login-page.module.css';
@@ -6,17 +7,22 @@ import { login } from '../../services/actions/auth';
 
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
+type TFormProps = {
+    email: string,
+    password: string,
+}
 
-const LoginPage = () => {
+const LoginPage = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    const {form, onChangeForm} = useForm({
+    const {form, onChangeForm} = useForm<TFormProps>({
         email: '',
         password: '',
     });
 
-    const onLogin = (e) => {
+    const onLogin = (e: SyntheticEvent) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(login(form))
     };
 
