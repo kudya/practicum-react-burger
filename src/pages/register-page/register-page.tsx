@@ -12,12 +12,12 @@ import {
     Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {TAuthFormData} from '../../utils/types';
+import {TUserData} from '../../utils/types';
 
 const RegisterPage = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    const { form, onChangeForm } = useForm<Pick<TAuthFormData, 'name' | 'email' | 'password'>>({
+    const { form, onChangeForm } = useForm<Pick<TUserData, 'name' | 'email' | 'password'>>({
         name: '',
         email: '',
         password: '',

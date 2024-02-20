@@ -6,14 +6,14 @@ import { resetPassword } from "../../utils/api/auth-api";
 
 import {Button, PasswordInput, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {TAuthFormData} from '../../utils/types';
+import {TUserData} from '../../utils/types';
 
 const ResetPasswordPage = (): React.JSX.Element => {
     const [ error, setError ] = useState(false);
 
     const navigate = useNavigate();
 
-    const {form, onChangeForm} = useForm<Pick<TAuthFormData, 'password' | 'code'>>({password: '', code: ''});
+    const {form, onChangeForm} = useForm<Pick<TUserData, 'password' | 'code'>>({password: '', code: ''});
 
     const onReset = async (e: SyntheticEvent) => {
         e.preventDefault();

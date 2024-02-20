@@ -1,21 +1,36 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useDrag, useDrop } from 'react-dnd'
 import draggableConstructorElementStyles from './draggable-constructor-element.module.css';
-import { ingredientPropTypes } from '../../../utils/propTypes'
 import { removeIngredient } from '../../../services/reducers/burgerConstructor';
 
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const DraggableConstructorElement = ({item, moveCard, index}) => {
+import {TConstructorIngredientData} from '../../../utils/types';
+
+type TBurgerConstructorElement = {
+    item: TConstructorIngredientData,
+    moveCard: (dragIndex: number, hoverIndex: number) => void,
+    index: number,
+}
+
+type TDragObject = {
+    id: string,
+    index: number,
+}
+
+type TDragCollectedProps = {
+   isDragging: boolean,
+}
+
+const DraggableConstructorElement = ({item, moveCard, index}: TBurgerConstructorElement): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    const ref = useRef(null)
+    const ref = useRef<HTMLDivElement | null>(null)
 
     const { key, name, price, image } = item
 
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<TDragObject, unknown, unknown>({
         accept: 'item',
         hover(item, monitor) {
             if (!ref.current) {
@@ -35,7 +50,7 @@ const DraggableConstructorElement = ({item, moveCard, index}) => {
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
             // Get pixels to the top
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = clientOffset!.y - hoverBoundingRect.top
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
@@ -57,7 +72,7 @@ const DraggableConstructorElement = ({item, moveCard, index}) => {
         },
     })
 
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag<TDragObject, unknown, TDragCollectedProps>({
         type: 'item',
         item: () => {
             return { id: key, index }
@@ -81,16 +96,11 @@ const DraggableConstructorElement = ({item, moveCard, index}) => {
                 text={name}
                 price={price}
                 thumbnail={image}
+                // @ts-ignore
                 handleClose={() => dispatch(removeIngredient(item.key))}
             />
         </div>
     );
-};
-
-DraggableConstructorElement.propTypes = {
-    item: ingredientPropTypes,
-    moveCard: PropTypes.func,
-    index: PropTypes.number,
 };
 
 export default DraggableConstructorElement;

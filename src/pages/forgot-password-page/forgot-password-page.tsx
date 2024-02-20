@@ -6,14 +6,14 @@ import { sendEmailToResetPassword } from '../../utils/api/auth-api';
 
 import { EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {TAuthFormData} from '../../utils/types';
+import {TUserData} from '../../utils/types';
 
 const ForgotPasswordPage = (): React.JSX.Element => {
     const [ error, setError ] = useState(false);
 
     const navigate = useNavigate();
 
-    const {form, onChangeForm} = useForm<Pick<TAuthFormData, 'email'>>({email: ''});
+    const {form, onChangeForm} = useForm<Pick<TUserData, 'email'>>({email: ''});
 
     const onRestore = async (e: SyntheticEvent) => {
         e.preventDefault();

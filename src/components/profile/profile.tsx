@@ -11,7 +11,7 @@ import {
     Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {TAuthFormData} from '../../utils/types';
+import {TUserData} from '../../utils/types';
 
 const Profile = (): React.JSX.Element => {
     const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Profile = (): React.JSX.Element => {
     // @ts-ignore
     const { user } = useSelector(store => store.auth);
 
-    const {form, onChangeForm, autoFillForm} = useForm<Pick<TAuthFormData, 'name' | 'email' | 'password'>>({
+    const {form, onChangeForm, autoFillForm} = useForm<Pick<TUserData, 'name' | 'email' | 'password'>>({
         name: user?.name ?? '',
         email: user?.email ?? '',
         password: '',

@@ -34,9 +34,9 @@ const BurgerConstructor = (): React.JSX.Element => {
         }
     }, [bun, ingredients])
 
-    const [ , dropRef ] = useDrop(() => ({
+    const [ , dropRef ] = useDrop<TConstructorIngredientData, unknown, unknown>(() => ({
         accept: 'ingredient',
-        drop: (item: TConstructorIngredientData ) => {
+        drop: (item ) => {
             if (item.type === 'bun') {
                 // @ts-ignore
                 dispatch(setBun(item));

@@ -2,25 +2,26 @@ import { refreshToken } from './auth-api';
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-export const checkResponse = (res) => {
-    console.log(res)
+type TFetchOptions = {
+    method: string,
+    headers: HeadersInit,
+    body?: string,
+}
+
+export const checkResponse = <T>(res: Response): Promise<T> => {
     if (res.ok) {
         return res.json();
-    }
-
-    if (res.success) {
-        return res;
     }
 
     return Promise.reject(`Ошибка ${res.status}`);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async <T>(url: string, options: TFetchOptions): Promise<T> => {
     try {
         const fetchResponse = await fetch(url, options);
         return await checkResponse(fetchResponse);
     } catch (error) {
-        if (error.message === "jwt expired") {
+        if ((error as Error).message === "jwt expired") {
             const refreshResponse = await refreshToken(); //обновляем токен
             if (!refreshResponse.success) {
                 return Promise.reject(refreshResponse);
@@ -28,7 +29,11 @@ export const fetchWithRefresh = async (url, options) => {
             localStorage.setItem('refreshToken', refreshResponse.refreshToken);
             localStorage.setItem('accessToken', refreshResponse.accessToken);
 
-            options.headers.authorization = refreshResponse.accessToken;
+            const headers = new Headers(options.headers);
+
+            headers.set("Authorization", refreshResponse.accessToken)
+
+            options.headers = headers;
 
             const fetchResponse = await fetch(url, options); //повторяем запрос
 
