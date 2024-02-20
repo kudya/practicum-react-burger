@@ -1,5 +1,5 @@
-import React, { useState, SyntheticEvent } from 'react';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import React, { useState, FormEvent } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useForm from '../../utils/hooks/useForm';
 import resetPasswordPageStyles from './reset-password-page.module.css';
 import { resetPassword } from "../../utils/api/auth-api";
@@ -15,7 +15,7 @@ const ResetPasswordPage = (): React.JSX.Element => {
 
     const {form, onChangeForm} = useForm<Pick<TUserData, 'password' | 'code'>>({password: '', code: ''});
 
-    const onReset = async (e: SyntheticEvent) => {
+    const onReset = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setError(false)

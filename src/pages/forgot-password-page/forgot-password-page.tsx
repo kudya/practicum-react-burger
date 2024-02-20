@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import forgotPasswordPageStyles from './forgot-password-page.module.css';
 import useForm from '../../utils/hooks/useForm';
@@ -15,7 +15,7 @@ const ForgotPasswordPage = (): React.JSX.Element => {
 
     const {form, onChangeForm} = useForm<Pick<TUserData, 'email'>>({email: ''});
 
-    const onRestore = async (e: SyntheticEvent) => {
+    const onRestore = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setError(false)
@@ -43,7 +43,6 @@ const ForgotPasswordPage = (): React.JSX.Element => {
                     htmlType="submit"
                     type="primary"
                     size="medium"
-                    onClick={onRestore}
                 >
                     Восстановить
                 </Button>

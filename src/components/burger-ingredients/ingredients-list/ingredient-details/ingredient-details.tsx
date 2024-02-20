@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import {loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
-import { loadIngredients } from '../../../../services/actions/ingredients';
 
 import {TIngredientData} from '../../../../utils/types';
 
@@ -16,16 +15,6 @@ const IngredientDetails = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
     const { id } = useParams();
-    const location = useLocation();
-
-    useEffect(() => {
-        const isModal = location.state && location.state.background;
-
-        if (!isModal && !ingredients.length) {
-            // @ts-ignore
-            dispatch(loadIngredients());
-        }
-    }, [])
 
     useEffect(() => {
         if (ingredients.length) {

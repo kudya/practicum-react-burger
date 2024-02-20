@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react';
+import React, { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import registerPageStyles from './register-page.module.css';
@@ -23,7 +23,7 @@ const RegisterPage = (): React.JSX.Element => {
         password: '',
     });
 
-    const onRegister = (e: SyntheticEvent) => {
+    const onRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // @ts-ignore
         dispatch(registerUser(form))

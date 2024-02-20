@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from 'react';
+import React, { FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import loginPageStyles from './login-page.module.css';
@@ -17,7 +17,7 @@ const LoginPage = (): React.JSX.Element => {
         password: '',
     });
 
-    const onLogin = (e: SyntheticEvent) => {
+    const onLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // @ts-ignore
         dispatch(login(form))

@@ -1,4 +1,4 @@
-import React, { useEffect, SyntheticEvent } from 'react';
+import React, { useEffect, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import profileStyles from './profile.module.css';
 import useForm from '../../utils/hooks/useForm';
@@ -31,7 +31,7 @@ const Profile = (): React.JSX.Element => {
         }
     }, [user])
 
-    const onSaveProfileChanges = (e: SyntheticEvent) => {
+    const onSaveProfileChanges = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         // @ts-ignore
         dispatch(changeUser(form))

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from './app.module.css';
 import { checkUserAuth } from '../../services/actions/auth';
+import { loadIngredients } from '../../services/actions/ingredients';
+import { clearIngredients } from '../../services/reducers/ingredients';
 
 import AppHeader from '../app-header/app-header';
 import HomePage from '../../pages/home-page/home-page';
@@ -16,7 +18,7 @@ import IngredientDetails from '../burger-ingredients/ingredients-list/ingredient
 import Modal from '../modal/modal';
 import Profile from '../profile/profile';
 import { OnlyAuth, OnlyUnAuth} from '../protected-route-element/protected-route-element';
-import Orders from "../orders/orders";
+import Orders from '../orders/orders';
 
 const App = (): React.JSX.Element => {
     const dispatch = useDispatch()
@@ -27,6 +29,13 @@ const App = (): React.JSX.Element => {
     useEffect(() => {
         // @ts-ignore
         dispatch(checkUserAuth());
+        // @ts-ignore
+        dispatch(loadIngredients());
+
+        return () => {
+            // @ts-ignore
+            dispatch(clearIngredients());
+        }
     }, [])
 
     const background = location.state && location.state.background;
