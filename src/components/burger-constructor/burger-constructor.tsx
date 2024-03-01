@@ -1,6 +1,6 @@
-import { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import burgerConstructorStyles from './burger-constructor.module.css'
 
@@ -12,31 +12,36 @@ import Modal from "../modal/modal";
 import ConstructorPlaceholder from "./constructor-placeholder/constructor-placeholder";
 import DraggableConstructorElement from './draggable-constructor-element/draggable-constructor-element';
 
-const BurgerConstructor = () => {
+import {TConstructorIngredientData} from '../../utils/types';
+
+const BurgerConstructor = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
+    // @ts-ignore
     const { user } = useSelector(store => store.auth)
+    // @ts-ignore
     const { bun, ingredients } = useSelector(store => store.burgerConstructor)
 
     const [modalVisible, setModalVisible] = useState(false);
 
     const navigate = useNavigate();
-    const location = useLocation();
 
     const totalPrice = useMemo(()  => {
         if (bun || ingredients.length) {
-            return ingredients.reduce((total, ingredient) => {
+            return ingredients.reduce((total: number, ingredient: TConstructorIngredientData) => {
                 return total + ingredient.price
             }, bun ? bun?.price * 2 : 0);
         }
     }, [bun, ingredients])
 
-    const [ , dropRef ] = useDrop(() => ({
+    const [ , dropRef ] = useDrop<TConstructorIngredientData, unknown, unknown>(() => ({
         accept: 'ingredient',
-        drop: (item) => {
+        drop: (item ) => {
             if (item.type === 'bun') {
+                // @ts-ignore
                 dispatch(setBun(item));
             } else {
+                // @ts-ignore
                 dispatch(addIngredient(item));
             }
         },
@@ -46,7 +51,8 @@ const BurgerConstructor = () => {
         })
     }))
 
-    const moveCard = useCallback((dragIndex, hoverIndex) => {
+    const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+        // @ts-ignore
         dispatch(changeElementsOrder({dragIndex, hoverIndex}));
     }, [])
 
@@ -79,7 +85,7 @@ const BurgerConstructor = () => {
 
                 {ingredients.length ? (
                     <ul className={`${burgerConstructorStyles.list} custom-scroll mt-2 mb-2`}>
-                        {ingredients.map((item, index) => {
+                        {ingredients.map((item: TConstructorIngredientData, index: number) => {
                             return (
                                 <li key={item.key}>
                                     <DraggableConstructorElement item={item} moveCard={moveCard} index={index}/>

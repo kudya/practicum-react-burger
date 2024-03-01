@@ -1,19 +1,21 @@
-import { useState } from 'react';
-import {Link, Navigate, useNavigate} from 'react-router-dom';
+import React, { useState, FormEvent } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import useForm from '../../utils/hooks/useForm';
 import resetPasswordPageStyles from './reset-password-page.module.css';
 import { resetPassword } from "../../utils/api/auth-api";
 
 import {Button, PasswordInput, Input} from '@ya.praktikum/react-developer-burger-ui-components';
 
-const ResetPasswordPage = () => {
+import {TUserData} from '../../utils/types';
+
+const ResetPasswordPage = (): React.JSX.Element => {
     const [ error, setError ] = useState(false);
 
     const navigate = useNavigate();
 
-    const {form, onChangeForm} = useForm({password: '', code: ''});
+    const {form, onChangeForm} = useForm<Pick<TUserData, 'password' | 'code'>>({password: '', code: ''});
 
-    const onReset = async (e) => {
+    const onReset = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setError(false)

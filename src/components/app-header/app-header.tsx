@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {NavLink} from 'react-router-dom';
 import appHeaderStyles from './app-header.module.css';
 
 import { Logo, BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 
-const AppHeader = () => {
-    const NavItem = ({children, text, textStyle}) => {
+type TNavItemProps = {
+    children: ReactNode,
+    text: string,
+    textStyle: string,
+}
+
+const AppHeader = (): React.JSX.Element => {
+    const NavItem = ({children, text, textStyle}: TNavItemProps): React.JSX.Element => {
         return (
             <div className={`${appHeaderStyles['nav-item']} mr-2 pt-4 pr-5 pb-4 pl-5 `}>
                 {children}

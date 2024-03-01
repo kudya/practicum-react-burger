@@ -1,9 +1,11 @@
-import {useMemo, useState, useEffect, useRef} from 'react';
+import React, {useMemo, useState, useEffect, useRef} from 'react';
 import {useSelector} from "react-redux";
 import burgerIngredientsStyles from './burger-ingredients.module.css'
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from "./ingredients-list/ingredients-list";
+
+import {TIngredientData} from '../../utils/types';
 
 const INGREDIENT_TYPES = {
     bun: 'bun',
@@ -11,14 +13,16 @@ const INGREDIENT_TYPES = {
     main: 'main',
 }
 
-const BurgerIngredients = () => {
+const BurgerIngredients = (): React.JSX.Element => {
+    // @ts-ignore
     const { ingredients } = useSelector(store => store.ingredients)
+    // @ts-ignore
     const { bun: constructorBun, ingredients: constructorIngredients } = useSelector(store => store.burgerConstructor)
 
-    const tabsRef = useRef();
-    const bunsRef = useRef();
-    const saucesRef = useRef();
-    const mainsRef = useRef();
+    const tabsRef = useRef<HTMLDivElement>(null!);
+    const bunsRef = useRef<HTMLDivElement>(null!);
+    const saucesRef = useRef<HTMLDivElement>(null!);
+    const mainsRef = useRef<HTMLDivElement>(null!);
 
     const [currentTab, setCurrentTab] = useState('bun');
 
@@ -60,7 +64,7 @@ const BurgerIngredients = () => {
 
     const ingredientsCounter = useMemo(()  => {
         if (constructorIngredients.length) {
-            return constructorIngredients.reduce((total, ingredient) => {
+            return constructorIngredients.reduce((total: {[key : string]: number}, ingredient: TIngredientData) => {
                 if (total[ingredient._id]) {
                     total[ingredient._id] = total[ingredient._id] + 1;
                 } else {
@@ -99,15 +103,15 @@ const BurgerIngredients = () => {
             <div onScroll={handleScroll} className={`${burgerIngredientsStyles.content} custom-scroll`}>
                 <div ref={bunsRef}>
                     <IngredientsList
-                        ingredients={ingredients?.filter(ingredient => ingredient.type === INGREDIENT_TYPES.bun)}
-                        counter={bunsCounter}
+                        ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.bun)}
+                        counter={bunsCounter ?? {}}
                         title="Булки"
                     />
                 </div>
 
                 <div ref={saucesRef}>
                     <IngredientsList
-                        ingredients={ingredients?.filter(ingredient => ingredient.type === INGREDIENT_TYPES.sauce)}
+                        ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.sauce)}
                         counter={ingredientsCounter}
                         title="Соусы"
                     />
@@ -115,7 +119,7 @@ const BurgerIngredients = () => {
 
                 <div ref={mainsRef}>
                     <IngredientsList
-                        ingredients={ingredients?.filter(ingredient => ingredient.type === INGREDIENT_TYPES.main)}
+                        ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.main)}
                         counter={ingredientsCounter}
                         title="Начинки"
                     />

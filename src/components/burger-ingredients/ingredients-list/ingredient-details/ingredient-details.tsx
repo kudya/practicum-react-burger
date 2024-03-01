@@ -1,30 +1,25 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import {loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
-import { loadIngredients } from '../../../../services/actions/ingredients';
 
-const IngredientDetails = () => {
+import {TIngredientData} from '../../../../utils/types';
+
+const IngredientDetails = (): React.JSX.Element => {
+    // @ts-ignore
     const { ingredients } = useSelector(store => store.ingredients)
+    // @ts-ignore
     const { ingredient } = useSelector(store => store.ingredientInfo);
 
     const dispatch = useDispatch();
 
     const { id } = useParams();
-    const location = useLocation();
-
-    useEffect(() => {
-        const isModal = location.state && location.state.background;
-
-        if (!isModal && !ingredients.length) {
-            dispatch(loadIngredients());
-        }
-    }, [])
 
     useEffect(() => {
         if (ingredients.length) {
-            const currentIngredient = ingredients.find(ingredient => ingredient._id === id);
+            const currentIngredient = ingredients.find((ingredient: TIngredientData) => ingredient._id === id);
+            // @ts-ignore
             dispatch(loadIngredientInfo(currentIngredient))
         }
     }, [ingredients.length])

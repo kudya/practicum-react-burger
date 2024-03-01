@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { useDrag } from 'react-dnd'
 import ingredientCardStyles from './ingredient-card.module.css'
-import { ingredientPropTypes } from '../../../../utils/propTypes'
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const IngredientCard = ({ingredient, count, onCardClick}) => {
+import {TIngredientData} from '../../../../utils/types';
+
+type TIngredientCardProps = {
+    ingredient: TIngredientData,
+    count: number,
+}
+
+const IngredientCard = ({ingredient, count}: TIngredientCardProps): React.JSX.Element => {
     const location = useLocation();
 
     const [{ isDragging }, dragRef] = useDrag(() => ({
@@ -42,12 +47,6 @@ const IngredientCard = ({ingredient, count, onCardClick}) => {
             <p className={`${ingredientCardStyles.name} text text_type_main-default`}>{ingredient.name}</p>
         </li>
     );
-};
-
-IngredientCard.propTypes = {
-    ingredient: ingredientPropTypes,
-    onCardClick: PropTypes.func,
-    count: PropTypes.number,
 };
 
 export default IngredientCard;

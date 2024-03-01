@@ -1,10 +1,17 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import ingredientsListStyles from "./ingredients-list.module.css";
-import { ingredientPropTypes } from '../../../utils/propTypes';
 
 import IngredientCard from "./ingredient-card/ingredient-card";
 
-const IngredientsList = ({ingredients, title, counter = {}}) => {
+import {TIngredientData} from '../../../utils/types';
+
+type TIngredientsListProps = {
+    ingredients: Array<TIngredientData>,
+    title: string,
+    counter: {[key: string]: number},
+}
+
+const IngredientsList = ({ingredients, title, counter = {}}: TIngredientsListProps): React.JSX.Element => {
     return (
         <div>
             <h3 className="text text_type_main-medium">{title}</h3>
@@ -22,12 +29,6 @@ const IngredientsList = ({ingredients, title, counter = {}}) => {
             </ul>
         </div>
     );
-};
-
-IngredientsList.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropTypes),
-    title: PropTypes.string,
-    counter: PropTypes.object,
 };
 
 export default IngredientsList;

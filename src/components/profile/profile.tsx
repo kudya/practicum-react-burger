@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import profileStyles from './profile.module.css';
 import useForm from '../../utils/hooks/useForm';
@@ -11,12 +11,15 @@ import {
     Button
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const Profile = () => {
+import {TUserData} from '../../utils/types';
+
+const Profile = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
+    // @ts-ignore
     const { user } = useSelector(store => store.auth);
 
-    const {form, onChangeForm, autoFillForm} = useForm({
+    const {form, onChangeForm, autoFillForm} = useForm<Pick<TUserData, 'name' | 'email' | 'password'>>({
         name: user?.name ?? '',
         email: user?.email ?? '',
         password: '',
@@ -28,8 +31,9 @@ const Profile = () => {
         }
     }, [user])
 
-    const onSaveProfileChanges = (e) => {
+    const onSaveProfileChanges = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        // @ts-ignore
         dispatch(changeUser(form))
     };
 

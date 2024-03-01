@@ -1,7 +1,7 @@
+import React from 'react';
 import notFound404PageStyles from './not-found-404-page.module.css';
 
-
-const NotFound404Page = () => {
+const NotFound404Page = (): React.JSX.Element => {
     return (
         <div className={notFound404PageStyles.container}>
             <h2 className='text text_type_digits-large mb-6'>
