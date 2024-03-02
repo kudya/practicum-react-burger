@@ -1,20 +1,16 @@
 import React from 'react';
 import ordersStyles from './orders.module.css'
 
+import OrderCard from '../feed-orders/order-card/order-card';
+
 const Orders = (): React.JSX.Element => {
+    const array = [...Array(9)]
+
     return (
-        <div className={`${ordersStyles.container} pt-30`}>
-            <p className='text text_type_digits-medium mb-6'>
-                🛠
-            </p>
-
-            <p className={`${ordersStyles.text} text text_type_main-medium text_color_inactive mb-6`}>
-                Скоро здесь будет страница или, возможно, целая космическая станция
-            </p>
-
-            <p className="text text_type_digits-medium">
-                🚀
-            </p>
+        <div className={`${ordersStyles.container} mt-10 pr-2`}>
+            {array.map(() => (
+                <OrderCard />
+            ))}
         </div>
     );
 };

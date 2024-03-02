@@ -6,14 +6,16 @@ import { checkUserAuth } from '../../services/actions/auth';
 import { loadIngredients } from '../../services/actions/ingredients';
 import { clearIngredients } from '../../services/reducers/ingredients';
 
-import AppHeader from '../app-header/app-header';
 import HomePage from '../../pages/home-page/home-page';
 import LoginPage from '../../pages/login-page/login-page';
 import RegisterPage from '../../pages/register-page/register-page';
 import ForgotPasswordPage from '../../pages/forgot-password-page/forgot-password-page';
 import ResetPasswordPage from '../../pages/reset-password-page/reset-password-page';
 import ProfilePage from '../../pages/profile-page/profile-page';
+import FeedPage from '../../pages/feed-page/feed-page';
 import NotFound404Page from '../../pages/not-found-404-page/not-found-404-page';
+
+import AppHeader from '../app-header/app-header';
 import IngredientDetails from '../burger-ingredients/ingredients-list/ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import Profile from '../profile/profile';
@@ -66,6 +68,7 @@ const App = (): React.JSX.Element => {
                     <Route path='orders' element={<Orders />} />
                 </Route>
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
+                <Route path='feed' element={<FeedPage />} />
                 <Route path='*' element={<NotFound404Page />} />
             </Routes>
 

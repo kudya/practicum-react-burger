@@ -35,9 +35,14 @@ const AppHeader = (): React.JSX.Element => {
                         }
                     </NavLink>
 
-                    <NavItem text="Лента заказов" textStyle="text_color_inactive">
-                        <ListIcon type='secondary'/>
-                    </NavItem>
+                    <NavLink className={appHeaderStyles.link} to='/feed'>
+                        {({isActive}) => (
+                            <NavItem text="Лента заказов" textStyle={isActive ? '' : 'text_color_inactive'}>
+                                <ListIcon type={isActive ? 'primary' : 'secondary'} />
+                            </NavItem>
+                        )}
+                    </NavLink>
+
                 </div>
 
                 <Logo/>
