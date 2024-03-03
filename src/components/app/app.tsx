@@ -21,6 +21,7 @@ import Modal from '../modal/modal';
 import Profile from '../profile/profile';
 import { OnlyAuth, OnlyUnAuth} from '../protected-route-element/protected-route-element';
 import Orders from '../orders/orders';
+import FeedOrderDetail from '../feed-orders/feed-order-detail/feed-order-detail';
 
 const App = (): React.JSX.Element => {
     const dispatch = useDispatch()
@@ -52,6 +53,12 @@ const App = (): React.JSX.Element => {
         </Modal>
     );
 
+    const FeedOrderDetailModal = () => (
+        <Modal title="#034533" onClose={onModalClose} >
+            <FeedOrderDetail withOrderNumber={false}/>
+        </Modal>
+    );
+
     return (
         <div className={appStyles.page}>
             <AppHeader />
@@ -67,14 +74,18 @@ const App = (): React.JSX.Element => {
                     <Route exact path='' element={<Profile />} />
                     <Route path='orders' element={<Orders />} />
                 </Route>
+                <Route path='/profile/orders/:number' element={<FeedOrderDetail />} />
                 <Route path='/ingredients/:id' element={<IngredientDetails />} />
-                <Route path='feed' element={<FeedPage />} />
+                <Route path='/feed' element={<FeedPage />} />
+                <Route path='/feed/:number' element={<FeedOrderDetail />} />
                 <Route path='*' element={<NotFound404Page />} />
             </Routes>
 
             {background && (
                 <Routes>
-                    <Route path='/ingredients/:id' element={<IngredientDetailsModal/>} />
+                    <Route path='/ingredients/:id' element={<IngredientDetailsModal />} />
+                    <Route path='/feed/:number' element={<FeedOrderDetailModal/>} />
+                    <Route path='/profile/orders/:number' element={<FeedOrderDetailModal/>} />
                 </Routes>
             )}
         </div>

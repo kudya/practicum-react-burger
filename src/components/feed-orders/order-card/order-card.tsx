@@ -1,12 +1,23 @@
 import React from 'react';
 import orderCardStyles from './order-card.module.css';
+import { Link, useLocation } from 'react-router-dom';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const OrderCard = ():React.JSX.Element => {
+    const location = useLocation();
+
+    const from = location.pathname.split('/').includes('feed') ? 'feed' : 'profile';
+
     const array = [...Array(9)]
+
     return (
         <div className={`${orderCardStyles.container} p-6 mb-4`}>
+            <Link
+                className={orderCardStyles.button}
+                to={from === 'feed' ? `/feed/${2 + 3}` : `/profile/orders/${2 + 3}`}
+                state={{background: location, from}}
+            />
             <div className={orderCardStyles.header}>
                 <p className='text text_type_digits-default'>
                     #034535
