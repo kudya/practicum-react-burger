@@ -1,10 +1,28 @@
-import React from 'react';
-import feedPageStyles from './feed-page.module.css'
+import React, { useEffect } from 'react';
+import feedPageStyles from './feed-page.module.css';
+import {useDispatch, useSelector} from '../../services/store';
+import { connect, disconnect } from '../../services/actions/webSocket';
 
 import FeedOrders from '../../components/feed-orders/feed-orders';
 import FeedStats from '../../components/feed-stats/feed-stats';
 
+const FEED_ORDERS_TOTAL_URL = 'wss://norma.nomoreparties.space/orders/all';
+
 const FeedPage = (): React.JSX.Element => {
+    const { wsConnected, data, error } = useSelector(store => store.feedOrders);
+    const dispatch = useDispatch();
+
+    const connectSocket = () => dispatch(connect(FEED_ORDERS_TOTAL_URL));
+    const disconnectSocket = () => dispatch(disconnect());
+
+    useEffect(() => {
+        connectSocket();
+
+        return () => {
+            disconnectSocket();
+        }
+    }, [])
+
     return (
         <div>
             <h2 className="text text_type_main-large mt-10 mb-5">Лента Заказов</h2>

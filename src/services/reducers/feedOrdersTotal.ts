@@ -33,8 +33,8 @@ const feedOrdersTotalSlice = createSlice({
     }
 })
 
-export const reducer = feedOrdersTotalSlice.reducer;
-export const {wsOpen, wsError, wsClose, wsMessage} = feedOrdersTotalSlice.actions;
+export const feedOrdersReducer = feedOrdersTotalSlice.reducer;
+export const { wsOpen, wsError, wsClose, wsMessage } = feedOrdersTotalSlice.actions;
 
 type TFeedOrdersTotalActionCreators = typeof feedOrdersTotalSlice.actions;
 
