@@ -17,24 +17,29 @@ const feedOrdersTotalSlice = createSlice({
     name: 'feedOrdersTotal',
     initialState,
     reducers: {
-        wsOpen: (state) => {
+        wsOpenFeedOrders: (state) => {
             state.wsConnected = true;
             state.error = null;
         },
-        wsError: (state, action: PayloadAction<string>) => {
+        wsErrorFeedOrders: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
-        wsClose: (state) => {
+        wsCloseFeedOrders: (state) => {
             state.wsConnected = false;
         },
-        wsMessage: (state, action: PayloadAction<TFeedOrders>) => {
+        wsMessageFeedOrders: (state, action: PayloadAction<TFeedOrders>) => {
             state.data = action.payload;
         },
     }
 })
 
 export const feedOrdersReducer = feedOrdersTotalSlice.reducer;
-export const { wsOpen, wsError, wsClose, wsMessage } = feedOrdersTotalSlice.actions;
+export const {
+    wsOpenFeedOrders,
+    wsErrorFeedOrders,
+    wsCloseFeedOrders,
+    wsMessageFeedOrders
+} = feedOrdersTotalSlice.actions;
 
 type TFeedOrdersTotalActionCreators = typeof feedOrdersTotalSlice.actions;
 

@@ -53,7 +53,7 @@ export type TAuthData = {
     message?: string,
 }
 
-export type TFeedOrder = Pick<TOrder, '_id' | 'status' | 'number' | 'createdAt' | 'updatedAt'> & {ingredients: Array<string>}
+export type TFeedOrder = Pick<TOrder, '_id' | 'status' | 'name' | 'number' | 'createdAt' | 'updatedAt'> & {ingredients: Array<string>}
 
 export type TFeedOrders = {
     success: boolean,

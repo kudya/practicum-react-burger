@@ -6,7 +6,18 @@ import {
 } from "react-redux";
 import {socketMiddleware} from "./middlewares/socket-middleware";
 import { connect, disconnect } from './actions/webSocket';
-import { wsOpen, wsError, wsClose, wsMessage } from './reducers/feedOrdersTotal';
+import {
+    wsOpenFeedOrders,
+    wsErrorFeedOrders,
+    wsCloseFeedOrders,
+    wsMessageFeedOrders
+} from './reducers/feedOrdersTotal';
+import {
+    wsOpenFeedOrdersProfile,
+    wsErrorFeedOrdersProfile,
+    wsCloseFeedOrdersProfile,
+    wsMessageFeedOrdersProfile
+} from './reducers/feedOrdersProfile';
 
 import { ingredientsReducer } from "./reducers/ingredients";
 import { burgerConstructorReducer } from "./reducers/burgerConstructor";
@@ -14,6 +25,7 @@ import { orderReducer } from './reducers/order';
 import { ingredientInfoReducer} from './reducers/ingredientInfo';
 import { authReducer } from './reducers/auth';
 import { feedOrdersReducer} from './reducers/feedOrdersTotal';
+import { feedOrdersProfileReducer } from './reducers/feedOrdersProfile';
 
 const rootReducer = combineReducers({
     ingredients: ingredientsReducer,
@@ -22,6 +34,7 @@ const rootReducer = combineReducers({
     ingredientInfo: ingredientInfoReducer,
     auth: authReducer,
     feedOrders: feedOrdersReducer,
+    feedOrdersProfile: feedOrdersProfileReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -29,15 +42,24 @@ export type RootState = ReturnType<typeof rootReducer>;
 const feedOrdersMiddleware = socketMiddleware({
     wsConnect: connect,
     wsDisconnect: disconnect,
-    onOpen: wsOpen,
-    onClose: wsClose,
-    onError: wsError,
-    onMessage: wsMessage,
+    onOpen: wsOpenFeedOrders,
+    onClose: wsCloseFeedOrders,
+    onError: wsErrorFeedOrders,
+    onMessage: wsMessageFeedOrders,
+})
+
+const feedOrdersProfileMiddleware = socketMiddleware({
+    wsConnect: connect,
+    wsDisconnect: disconnect,
+    onOpen: wsOpenFeedOrdersProfile,
+    onClose: wsCloseFeedOrdersProfile,
+    onError: wsErrorFeedOrdersProfile,
+    onMessage: wsMessageFeedOrdersProfile,
 })
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(feedOrdersMiddleware),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(feedOrdersMiddleware, feedOrdersProfileMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
