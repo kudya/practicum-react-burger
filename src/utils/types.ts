@@ -58,7 +58,14 @@ export type TFeedOrder = Pick<TOrder, '_id' | 'status' | 'name' | 'number' | 'cr
 export type TFeedOrders = {
     success: boolean,
     orders: Array<TFeedOrder>,
-    total: number,
-    totalToday: number,
+    total?: number,
+    totalToday?: number,
+}
+
+export enum ORDER_STATUS {
+    Done = "Выполнен",
+    Pending = "Готовится",
+    Created = "Создан",
+    Unknown = "Статус неизвестен",
 }
 

@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import registerPageStyles from './register-page.module.css';
 import useForm from '../../utils/hooks/useForm';
 import { registerUser } from '../../services/actions/auth';
+import { useDispatch } from '../../services/store';
 
 import {
     Input,
@@ -15,7 +15,7 @@ import {
 import {TUserData} from '../../utils/types';
 
 const RegisterPage = (): React.JSX.Element => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const { form, onChangeForm } = useForm<Pick<TUserData, 'name' | 'email' | 'password'>>({
         name: '',
@@ -25,7 +25,6 @@ const RegisterPage = (): React.JSX.Element => {
 
     const onRegister = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(registerUser(form))
     };
 

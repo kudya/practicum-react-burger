@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { makeOrder } from '../actions/order';
 
+// export type TOrderStore = {
+//     orderNumber: number | null,
+//     orderName: string | null,
+//     loading: boolean,
+//     error: string | null,
+// }
+
 const initialState = {
     orderNumber: null,
     orderContent: [],
@@ -11,15 +18,7 @@ const initialState = {
 const orderSlice = createSlice({
     name: 'order',
     initialState,
-    reducers: {
-        clearIngredients: {
-            reducer: (state) => {
-                state.ingredients = [];
-                state.loading = false;
-                state.error = null;
-            },
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(makeOrder.pending, (state) => {

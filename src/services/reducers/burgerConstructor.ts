@@ -1,6 +1,11 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { TIngredientData } from '../../utils/types';
 
-const initialState = {
+export type TBurgerConstructorStore = {
+    bun: TIngredientData & {key?: string} | null,
+    ingredients: Array<TIngredientData & {key?: string}>,
+}
+const initialState: TBurgerConstructorStore = {
     bun: null,
     ingredients: [],
 };
@@ -25,17 +30,20 @@ const burgerConstructorSlice = createSlice({
                 return { payload: {...ingredient, key: nanoid()}}
             }
         },
+        //@ts-ignore
         removeIngredient: {
             reducer: (state, action) => {
                 state.ingredients = state.ingredients.filter(ingredient => ingredient.key !== action.payload);
             },
         },
+        //@ts-ignore
         changeElementsOrder: {
             reducer: (state, action) => {
                 const { dragIndex, hoverIndex } = action.payload;
                 state.ingredients.splice(dragIndex, 0, state.ingredients.splice(hoverIndex, 1)[0])
             },
         },
+        //@ts-ignore
         clearConstructor: {
             reducer: (state) => {
                 state.bun = null;
@@ -47,3 +55,6 @@ const burgerConstructorSlice = createSlice({
 
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
 export const { setBun,  addIngredient, removeIngredient, changeElementsOrder, clearConstructor } = burgerConstructorSlice.actions;
+
+type TBurgerConstructorActionCreators = typeof burgerConstructorSlice.actions;
+export type TBurgerConstructorActions = ReturnType<TBurgerConstructorActionCreators[keyof TBurgerConstructorActionCreators]>;

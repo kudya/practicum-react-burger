@@ -1,14 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import {NavLink, Outlet, useMatch} from 'react-router-dom';
+import { NavLink, Outlet, useMatch } from 'react-router-dom';
 import profilePageStyles from './profile-page.module.css';
-import {logout} from '../../services/actions/auth';
+import { logout } from '../../services/actions/auth';
+import { useDispatch } from '../../services/store';
 
 const ProfilePage = (): React.JSX.Element => {
     const dispatch = useDispatch();
     const match = useMatch('/profile');
 
-    // @ts-ignore
     const onLogout = () => dispatch(logout())
 
     return (

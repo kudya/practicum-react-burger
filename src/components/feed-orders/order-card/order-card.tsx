@@ -53,7 +53,7 @@ const OrderCard = ({order}: TOrderCardProps):React.JSX.Element => {
                     />
                 ) : (
                     <p className='text text_type_main-default text_color_inactive'>
-                        Сегодня, 16:20
+                        Дата уточняется
                     </p>
                 )}
             </div>

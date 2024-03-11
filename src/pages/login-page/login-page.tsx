@@ -1,9 +1,9 @@
 import React, { FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import loginPageStyles from './login-page.module.css';
 import useForm from '../../utils/hooks/useForm';
 import { login } from '../../services/actions/auth';
+import { useDispatch } from '../../services/store';
 
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -19,7 +19,6 @@ const LoginPage = (): React.JSX.Element => {
 
     const onLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(login(form))
     };
 

@@ -52,6 +52,10 @@
     linear-gradient(45deg, #801AB2, #4C4CFF) border-box;
 }
 
+.title {
+    flex-grow: 1;
+}
+
 .price {
     display: flex;
     justify-content: flex-end;
