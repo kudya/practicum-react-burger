@@ -23,9 +23,9 @@ import { ingredientsReducer, TIngredientsActions } from "./reducers/ingredients"
 import {burgerConstructorReducer, TBurgerConstructorActions} from "./reducers/burgerConstructor";
 import { orderReducer } from './reducers/order';
 import { ingredientInfoReducer, TIngredientInfoActions} from './reducers/ingredientInfo';
-import { authReducer } from './reducers/auth';
-import { feedOrdersReducer} from './reducers/feedOrdersTotal';
-import { feedOrdersProfileReducer } from './reducers/feedOrdersProfile';
+import { authReducer, TAuthActions } from './reducers/auth';
+import { feedOrdersReducer, TFeedOrdersTotalActions} from './reducers/feedOrdersTotal';
+import { feedOrdersProfileReducer, TFeedOrdersProfileActions } from './reducers/feedOrdersProfile';
 import { feedOrderReducer, TFeedOrderActions } from './reducers/feedOrder';
 
 const rootReducer = combineReducers({
@@ -59,7 +59,13 @@ const feedOrdersProfileMiddleware = socketMiddleware({
     onMessage: wsMessageFeedOrdersProfile,
 })
 
-export type TAppActions = TIngredientInfoActions | TFeedOrderActions | TBurgerConstructorActions | TIngredientsActions;
+export type TAppActions = TIngredientInfoActions
+    | TFeedOrderActions
+    | TBurgerConstructorActions
+    | TIngredientsActions
+    | TAuthActions
+    | TFeedOrdersTotalActions
+    | TFeedOrdersProfileActions;
 
 export const store = configureStore({
     reducer: rootReducer,

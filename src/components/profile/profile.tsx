@@ -1,8 +1,8 @@
 import React, { useEffect, FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import profileStyles from './profile.module.css';
 import useForm from '../../utils/hooks/useForm';
 import { changeUser } from '../../services/actions/auth';
+import { useDispatch, useSelector } from '../../services/store';
 
 import {
     Input,
@@ -16,7 +16,6 @@ import {TUserData} from '../../utils/types';
 const Profile = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    // @ts-ignore
     const { user } = useSelector(store => store.auth);
 
     const {form, onChangeForm, autoFillForm} = useForm<Pick<TUserData, 'name' | 'email' | 'password'>>({
@@ -33,7 +32,6 @@ const Profile = (): React.JSX.Element => {
 
     const onSaveProfileChanges = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // @ts-ignore
         dispatch(changeUser(form))
     };
 
@@ -42,7 +40,7 @@ const Profile = (): React.JSX.Element => {
     };
 
     const isActionsVisible =
-        user.name !== form.name ||
+        user?.name !== form.name ||
         user.email !== form.email ||
         !!form.password;
 

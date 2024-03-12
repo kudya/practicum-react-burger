@@ -58,7 +58,8 @@ export const changeUser = (userData: Pick<TUserData, 'email' | 'password' | 'nam
 export const checkUserAuth = () => {
     return (dispatch: Dispatch) => {
         if (localStorage.getItem('accessToken')) {
-            getUser();
+            //@ts-ignore
+            dispatch(getUser());
         } else {
             dispatch(setAuthChecked(true));
         }

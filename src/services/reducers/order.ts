@@ -1,16 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { makeOrder } from '../actions/order';
 
-// export type TOrderStore = {
-//     orderNumber: number | null,
-//     orderName: string | null,
-//     loading: boolean,
-//     error: string | null,
-// }
+export type TOrderStore = {
+    orderNumber: number | null,
+    loading: boolean,
+    error: string | null,
+}
 
-const initialState = {
+const initialState: TOrderStore = {
     orderNumber: null,
-    orderContent: [],
     loading: false,
     error: null,
 };
@@ -28,14 +26,13 @@ const orderSlice = createSlice({
             })
             .addCase(makeOrder.rejected, (state, action) => {
                 state.orderNumber = null;
-                state.orderName = null;
                 state.loading = false;
+                //@ts-ignore
                 state.error = action.payload;
             })
             .addCase(makeOrder.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orderNumber = action.payload.order.number;
-                state.orderName = action.payload.name;
             })
     }
 });

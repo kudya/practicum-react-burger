@@ -8,7 +8,7 @@ import {TIngredientData} from '../../../utils/types';
 type TIngredientsListProps = {
     ingredients: Array<TIngredientData>,
     title: string,
-    counter: {[key: string]: number},
+    counter?: {[key: string]: number},
 }
 
 const IngredientsList = ({ingredients, title, counter = {}}: TIngredientsListProps): React.JSX.Element => {

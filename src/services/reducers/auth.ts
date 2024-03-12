@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { registerUser, login, logout } from '../actions/auth';
+import {TUserData} from "../../utils/types";
 
-const initialState = {
+export type TAuthStore = {
+    user: Pick<TUserData, "email" | "name"> | null,
+    isAuthChecked: boolean,
+    loading: boolean,
+    error: string | null,
+}
+
+const initialState: TAuthStore = {
     user: null,
     isAuthChecked: false,
     loading: false,
@@ -27,6 +35,7 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
+                //@ts-ignore
                 state.error = action.payload;
             })
             .addCase(registerUser.fulfilled, (state, action) => {
@@ -39,6 +48,7 @@ const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
+                //@ts-ignore
                 state.error = action.payload;
             })
             .addCase(login.fulfilled, (state, action) => {
@@ -51,6 +61,7 @@ const authSlice = createSlice({
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
+                //@ts-ignore
                 state.error = action.payload;
             })
             .addCase(logout.fulfilled, (state) => {
@@ -62,3 +73,6 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const { setAuthChecked, setUser } = authSlice.actions;
+
+type TAuthActionCreators = typeof authSlice.actions;
+export type TAuthActions = ReturnType<TAuthActionCreators[keyof TAuthActionCreators]>

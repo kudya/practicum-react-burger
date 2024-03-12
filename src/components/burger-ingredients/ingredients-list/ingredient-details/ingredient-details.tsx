@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 import {loadIngredientInfo} from '../../../../services/reducers/ingredientInfo';
+import { useDispatch, useSelector } from '../../../../services/store';
 
 import {TIngredientData} from '../../../../utils/types';
 
+
 const IngredientDetails = (): React.JSX.Element => {
-    // @ts-ignore
     const { ingredients } = useSelector(store => store.ingredients)
-    // @ts-ignore
     const { ingredient } = useSelector(store => store.ingredientInfo);
 
     const dispatch = useDispatch();
@@ -19,7 +18,6 @@ const IngredientDetails = (): React.JSX.Element => {
     useEffect(() => {
         if (ingredients.length) {
             const currentIngredient = ingredients.find((ingredient: TIngredientData) => ingredient._id === id);
-            // @ts-ignore
             dispatch(loadIngredientInfo(currentIngredient))
         }
     }, [ingredients.length])

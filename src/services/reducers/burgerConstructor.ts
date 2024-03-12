@@ -54,7 +54,13 @@ const burgerConstructorSlice = createSlice({
 })
 
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;
-export const { setBun,  addIngredient, removeIngredient, changeElementsOrder, clearConstructor } = burgerConstructorSlice.actions;
+export const {
+    setBun,
+    addIngredient,
+    removeIngredient,
+    changeElementsOrder,
+    clearConstructor
+} = burgerConstructorSlice.actions;
 
 type TBurgerConstructorActionCreators = typeof burgerConstructorSlice.actions;
 export type TBurgerConstructorActions = ReturnType<TBurgerConstructorActionCreators[keyof TBurgerConstructorActionCreators]>;

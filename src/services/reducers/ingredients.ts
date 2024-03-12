@@ -40,7 +40,6 @@ const ingredientsSlice = createSlice({
             })
             .addCase(loadIngredients.fulfilled, (state, action) => {
                 state.loading = false;
-                // @ts-ignore
                 state.ingredients = action.payload.data;
             })
     }
