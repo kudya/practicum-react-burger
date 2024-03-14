@@ -9,12 +9,5 @@ export const  makeOrder = createAsyncThunk(
 
 export const  getOrderByNumber = createAsyncThunk(
     "order/getOrderByNumber",
-    async (number: number, { rejectWithValue }) => {
-        try {
-            return await getOrderByNumberRequest(number)
-        } catch(error) {
-            // @ts-ignore
-            return rejectWithValue(error.message)
-        }
-    }
+    async (number: number) => await getOrderByNumberRequest(number)
 );

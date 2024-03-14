@@ -35,8 +35,7 @@ const ingredientsSlice = createSlice({
             })
             .addCase(loadIngredients.rejected, (state, action) => {
                 state.loading = false;
-                // @ts-ignore
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при получении ингредиентов';
             })
             .addCase(loadIngredients.fulfilled, (state, action) => {
                 state.loading = false;

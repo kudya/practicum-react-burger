@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import { makeOrder } from '../actions/order';
 
 export type TOrderStore = {
@@ -27,8 +27,7 @@ const orderSlice = createSlice({
             .addCase(makeOrder.rejected, (state, action) => {
                 state.orderNumber = null;
                 state.loading = false;
-                //@ts-ignore
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при сборе заказа';
             })
             .addCase(makeOrder.fulfilled, (state, action) => {
                 state.loading = false;

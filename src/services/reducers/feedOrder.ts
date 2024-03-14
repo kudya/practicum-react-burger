@@ -37,8 +37,7 @@ const feedOrderSlice = createSlice({
             .addCase(getOrderByNumber.rejected, (state, action ) => {
                 state.order = null;
                 state.loading = false;
-                // @ts-ignore
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при получении информации о заказе';
             })
             .addCase(getOrderByNumber.fulfilled, (state, action) => {
                 const { orders } = action.payload;
