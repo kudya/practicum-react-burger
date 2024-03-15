@@ -36,13 +36,11 @@ const FeedOrderDetail = ({ withOrderNumber = true }: TFeedOrderDetailProps): Rea
     })
 
     useEffect(() => {
-        if(!order) {
-            // @ts-ignore
-            dispatch(getOrderByNumber(number));
+        if(!order && number) {
+            dispatch(getOrderByNumber(+number));
         }
 
         return () => {
-            // @ts-ignore
             dispatch(clearOrder());
         }
     }, [])
@@ -65,7 +63,6 @@ const FeedOrderDetail = ({ withOrderNumber = true }: TFeedOrderDetailProps): Rea
                 const extendedIngredient = ingredients.find((ingredient: TIngredientData) => ingredient._id === id)
 
                 if (extendedIngredient) {
-                    // @ts-ignore
                     resultList.push({...extendedIngredient, counter: 1})
                 }
             }
@@ -77,7 +74,6 @@ const FeedOrderDetail = ({ withOrderNumber = true }: TFeedOrderDetailProps): Rea
     const totalPrice = useMemo(()  => {
         if (preparedIngredients?.length) {
             return preparedIngredients?.reduce((total, ingredient) => {
-                // @ts-ignore
                 return total + (ingredient.counter * ingredient?.price)
             }, 0);
         }
@@ -107,12 +103,10 @@ const FeedOrderDetail = ({ withOrderNumber = true }: TFeedOrderDetailProps): Rea
                     {preparedIngredients?.map((item: TIngredientData & {counter: number}, index: number) => (
                         <li className={feedOrderDetailStyles['content-list-item']} key={index}>
                             <div className={`${feedOrderDetailStyles['item-img']} mr-4`}>
-                                {/* @ts-ignore*/}
                                 <img height={60} src={item?.image_mobile} alt={`${item?.name ?? 'Ингредиент бургера в заказе'}.`} />
                             </div>
 
                             <p className={`${feedOrderDetailStyles.title} text text_type_main-default mr-4`}>
-                                {/* @ts-ignore*/}
                                 { item?.name ?? 'Неизвестный ингредиент'}
                             </p>
 

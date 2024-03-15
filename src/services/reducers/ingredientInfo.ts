@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TIngredientData } from '../../utils/types';
 
 
@@ -14,17 +14,12 @@ const ingredientInfoSlice = createSlice({
     name: 'ingredientInfo',
     initialState,
     reducers: {
-        //@ts-ignore
-        loadIngredientInfo: {
-            reducer: (state, action: PayloadAction<TIngredientData>) => {
-                state.ingredient = action.payload;
-            },
+        loadIngredientInfo: (state, action) => {
+            state.ingredient = action.payload;
         },
-        //@ts-ignore
-        clearIngredientInfo: {
-            reducer: (state) => {
-                state.ingredient = null;
-            }
+
+        clearIngredientInfo: (state) => {
+            state.ingredient = null;
         }
     },
 })

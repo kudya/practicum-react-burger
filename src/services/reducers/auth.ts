@@ -23,6 +23,7 @@ const authSlice = createSlice({
         setAuthChecked: (state, action) => {
             state.isAuthChecked = action.payload;
         },
+
         setUser: (state, action) => {
         state.user = action.payload;
         },

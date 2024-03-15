@@ -34,7 +34,6 @@ const App = (): React.JSX.Element => {
         dispatch(loadIngredients());
 
         return () => {
-            //@ts-ignore
             dispatch(clearIngredients());
         }
     }, [])
@@ -68,8 +67,7 @@ const App = (): React.JSX.Element => {
                 <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPasswordPage />} />} />
                 <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPasswordPage />} />} />
                 <Route path='/profile' element={<OnlyAuth component={<ProfilePage />} />} >
-                    {/* @ts-ignore */}
-                    <Route exact path='' element={<Profile />} />
+                    <Route path='' element={<Profile />} />
                     <Route path='orders' element={<Orders />} />
                 </Route>
                 <Route path='/profile/orders/:number' element={<FeedOrderDetail />} />

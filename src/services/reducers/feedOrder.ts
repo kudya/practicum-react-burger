@@ -18,13 +18,10 @@ const feedOrderSlice = createSlice({
     name: 'feedOrder',
     initialState,
     reducers: {
-        // @ts-ignore
-        clearOrder: {
-            reducer: (state) => {
-                state.order = null;
-                state.loading = false;
-                state.error = null;
-            },
+        clearOrder: (state) => {
+            state.order = null;
+            state.loading = false;
+            state.error = null;
         },
     },
     extraReducers: (builder) => {

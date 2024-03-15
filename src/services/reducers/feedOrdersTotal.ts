@@ -21,12 +21,15 @@ const feedOrdersTotalSlice = createSlice({
             state.wsConnected = true;
             state.error = null;
         },
+
         wsErrorFeedOrders: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
+
         wsCloseFeedOrders: (state) => {
             state.wsConnected = false;
         },
+
         wsMessageFeedOrders: (state, action: PayloadAction<TFeedOrders>) => {
             state.data = action.payload;
         },

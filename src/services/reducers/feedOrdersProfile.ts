@@ -21,12 +21,15 @@ const feedOrdersProfileSlice = createSlice({
             state.wsConnected = true;
             state.error = null;
         },
+
         wsErrorFeedOrdersProfile: (state, action: PayloadAction<string>) => {
             state.error = action.payload;
         },
+
         wsCloseFeedOrdersProfile: (state) => {
             state.wsConnected = false;
         },
+
         wsMessageFeedOrdersProfile: (state, action: PayloadAction<TFeedOrders>) => {
             state.data = action.payload;
         },

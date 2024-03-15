@@ -17,13 +17,11 @@ const OrderDetails = (): React.JSX.Element => {
     useEffect(() => {
         if (bun && ingredients.length) {
             dispatch(makeOrder(collectOrder()))
-                //@ts-ignore
                 .then(() => dispatch(clearConstructor()));
         }
     }, [])
 
     const collectOrder = () => {
-        //@ts-ignore
         const burgerIngredientsIds = ingredients.map((ingredient: TConstructorIngredientData) => ingredient._id);
 
         if (bun) {

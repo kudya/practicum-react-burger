@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { registerUserData, loginUser, getUserData, changeUserData, logoutUser } from '../../utils/api/auth-api';
 import { setUser, setAuthChecked } from '../reducers/auth';
 
-import {TUserData} from "../../utils/types";
-import { Dispatch } from 'redux';
+import { TUserData } from "../../utils/types";
+import { AppDispatch } from '../store';
 
 export const registerUser = createAsyncThunk(
     'auth/registerUser',
@@ -36,7 +36,7 @@ export const logout = createAsyncThunk(
 );
 
 export const getUser = () => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: AppDispatch) => {
         return getUserData()
             .then(res => dispatch(setUser(res.user)))
             .catch(() => {
@@ -49,16 +49,15 @@ export const getUser = () => {
 }
 
 export const changeUser = (userData: Pick<TUserData, 'email' | 'password' | 'name'>) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: AppDispatch) => {
         return changeUserData(userData)
             .then(res => dispatch(setUser(res.user)))
     }
 }
 
 export const checkUserAuth = () => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: AppDispatch) => {
         if (localStorage.getItem('accessToken')) {
-            //@ts-ignore
             dispatch(getUser());
         } else {
             dispatch(setAuthChecked(true));

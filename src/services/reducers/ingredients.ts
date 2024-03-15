@@ -18,13 +18,10 @@ const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {
-        // @ts-ignore
-        clearIngredients: {
-            reducer: (state) => {
-                state.ingredients = [];
-                state.loading = false;
-                state.error = null;
-            },
+        clearIngredients: (state) => {
+            state.ingredients = [];
+            state.loading = false;
+            state.error = null;
         },
     },
     extraReducers: (builder) => {

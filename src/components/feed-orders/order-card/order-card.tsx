@@ -25,8 +25,8 @@ const OrderCard = ({order}: TOrderCardProps):React.JSX.Element => {
     const totalPrice = useMemo(()  => {
         if (preparedIngredients?.length) {
             return preparedIngredients?.reduce((total, ingredient) => {
-                // @ts-ignore
-                return total + ingredient?.price
+                const price = ingredient?.price ?? 0
+                return total + price
             }, 0);
         }
     }, [preparedIngredients])
@@ -70,7 +70,6 @@ const OrderCard = ({order}: TOrderCardProps):React.JSX.Element => {
                             style={{zIndex: 6 - index}}
                             key={index}
                         >
-                            {/* @ts-ignore*/}
                             <img height={60} src={item?.image_mobile} alt={`${item?.name ?? 'Ингредиент бургера в заказе'}.`} />
                             {index === 5 && preparedIngredients?.length > 6 && (
                                 <div

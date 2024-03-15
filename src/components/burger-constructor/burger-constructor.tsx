@@ -26,9 +26,8 @@ const BurgerConstructor = (): React.JSX.Element => {
 
     const totalPrice = useMemo(()  => {
         if (bun || ingredients.length) {
-            //@ts-ignore
             return ingredients.reduce((total: number, ingredient: TConstructorIngredientData) => {
-                return total + ingredient.price
+                return total + ingredient?.price
             }, bun ? bun?.price * 2 : 0);
         }
     }, [bun, ingredients])
@@ -81,7 +80,6 @@ const BurgerConstructor = (): React.JSX.Element => {
 
                 {ingredients.length ? (
                     <ul className={`${burgerConstructorStyles.list} custom-scroll mt-2 mb-2`}>
-                        {/*@ts-ignore*/}
                         {ingredients.map((item: TConstructorIngredientData, index: number) => {
                             return (
                                 <li key={item.key}>

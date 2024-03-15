@@ -1,9 +1,9 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { TIngredientData } from '../../utils/types';
+import {createSlice, nanoid, PayloadAction} from '@reduxjs/toolkit';
+import { TIngredientData, TConstructorIngredientData } from '../../utils/types';
 
 export type TBurgerConstructorStore = {
-    bun: TIngredientData & {key?: string} | null,
-    ingredients: Array<TIngredientData & {key?: string}>,
+    bun: TConstructorIngredientData | null,
+    ingredients: Array<TConstructorIngredientData>,
 }
 const initialState: TBurgerConstructorStore = {
     bun: null,
@@ -15,40 +15,35 @@ const burgerConstructorSlice = createSlice({
     initialState,
     reducers: {
         setBun: {
-            reducer: (state, action) => {
+            reducer: (state, action: PayloadAction<TConstructorIngredientData>) => {
                 state.bun = action.payload;
             },
-            prepare: (bun) => {
-                return { payload: {...bun, key: nanoid()}}
+            prepare: (bun: TIngredientData) => {
+                return {payload: {...bun, key: nanoid()}}
             }
         },
+
         addIngredient: {
-            reducer: (state, action) => {
+            reducer: (state, action: PayloadAction<TConstructorIngredientData>) => {
                 state.ingredients.push(action.payload);
             },
-            prepare: (ingredient) => {
-                return { payload: {...ingredient, key: nanoid()}}
+            prepare: (ingredient: TIngredientData) => {
+                return {payload: {...ingredient, key: nanoid()}}
             }
         },
-        //@ts-ignore
-        removeIngredient: {
-            reducer: (state, action) => {
-                state.ingredients = state.ingredients.filter(ingredient => ingredient.key !== action.payload);
-            },
+
+        removeIngredient: (state, action) => {
+            state.ingredients = state.ingredients.filter(ingredient => ingredient.key !== action.payload);
         },
-        //@ts-ignore
-        changeElementsOrder: {
-            reducer: (state, action) => {
-                const { dragIndex, hoverIndex } = action.payload;
-                state.ingredients.splice(dragIndex, 0, state.ingredients.splice(hoverIndex, 1)[0])
-            },
+
+        changeElementsOrder: (state, action) => {
+            const {dragIndex, hoverIndex} = action.payload;
+            state.ingredients.splice(dragIndex, 0, state.ingredients.splice(hoverIndex, 1)[0])
         },
-        //@ts-ignore
-        clearConstructor: {
-            reducer: (state) => {
-                state.bun = null;
-                state.ingredients = [];
-            },
+
+        clearConstructor: (state) => {
+            state.bun = null;
+            state.ingredients = [];
         },
     },
 })
