@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadIngredients } from '../actions/ingredients';
+import {TIngredientData} from '../../utils/types';
 
-const initialState = {
+export type TIngredientsStore = {
+    ingredients: Array<TIngredientData>,
+    loading: boolean,
+    error: string | null,
+}
+
+const initialState: TIngredientsStore = {
     ingredients: [],
     loading: false,
     error: null,
@@ -11,12 +18,10 @@ const ingredientsSlice = createSlice({
     name: 'ingredients',
     initialState,
     reducers: {
-        clearIngredients: {
-            reducer: (state) => {
-                state.ingredients = [];
-                state.loading = false;
-                state.error = null;
-            },
+        clearIngredients: (state) => {
+            state.ingredients = [];
+            state.loading = false;
+            state.error = null;
         },
     },
     extraReducers: (builder) => {
@@ -27,7 +32,7 @@ const ingredientsSlice = createSlice({
             })
             .addCase(loadIngredients.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при получении ингредиентов';
             })
             .addCase(loadIngredients.fulfilled, (state, action) => {
                 state.loading = false;
@@ -38,3 +43,6 @@ const ingredientsSlice = createSlice({
 
 export const ingredientsReducer = ingredientsSlice.reducer;
 export const { clearIngredients } = ingredientsSlice.actions;
+
+type TIngredientsActionCreators = typeof ingredientsSlice.actions;
+export type TIngredientsActions = ReturnType<TIngredientsActionCreators[keyof TIngredientsActionCreators]>

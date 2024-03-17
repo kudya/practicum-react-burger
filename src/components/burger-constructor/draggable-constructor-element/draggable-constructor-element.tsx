@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd'
 import draggableConstructorElementStyles from './draggable-constructor-element.module.css';
 import { removeIngredient } from '../../../services/reducers/burgerConstructor';
+import { useDispatch } from '../../../services/store';
 
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -96,7 +96,6 @@ const DraggableConstructorElement = ({item, moveCard, index}: TBurgerConstructor
                 text={name}
                 price={price}
                 thumbnail={image}
-                // @ts-ignore
                 handleClose={() => dispatch(removeIngredient(item.key))}
             />
         </div>

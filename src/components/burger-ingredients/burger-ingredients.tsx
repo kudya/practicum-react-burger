@@ -1,6 +1,6 @@
 import React, {useMemo, useState, useEffect, useRef} from 'react';
-import {useSelector} from "react-redux";
 import burgerIngredientsStyles from './burger-ingredients.module.css'
+import { useSelector } from '../../services/store';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientsList from "./ingredients-list/ingredients-list";
@@ -14,9 +14,7 @@ const INGREDIENT_TYPES = {
 }
 
 const BurgerIngredients = (): React.JSX.Element => {
-    // @ts-ignore
     const { ingredients } = useSelector(store => store.ingredients)
-    // @ts-ignore
     const { bun: constructorBun, ingredients: constructorIngredients } = useSelector(store => store.burgerConstructor)
 
     const tabsRef = useRef<HTMLDivElement>(null!);

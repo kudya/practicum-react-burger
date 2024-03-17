@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import orderDetailsStyles from './order-details.module.css'
 import { makeOrder } from '../../../services/actions/order';
 import { clearConstructor } from '../../../services/reducers/burgerConstructor';
+import { useDispatch, useSelector } from '../../../services/store';
 
 import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -11,16 +11,12 @@ import {TConstructorIngredientData} from '../../../utils/types';
 const OrderDetails = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    // @ts-ignore
     const { bun, ingredients } = useSelector(store => store.burgerConstructor);
-    // @ts-ignore
     const { loading, error, orderNumber } = useSelector(store => store.order);
 
     useEffect(() => {
         if (bun && ingredients.length) {
-            // @ts-ignore
             dispatch(makeOrder(collectOrder()))
-                // @ts-ignore
                 .then(() => dispatch(clearConstructor()));
         }
     }, [])
@@ -28,8 +24,10 @@ const OrderDetails = (): React.JSX.Element => {
     const collectOrder = () => {
         const burgerIngredientsIds = ingredients.map((ingredient: TConstructorIngredientData) => ingredient._id);
 
-        burgerIngredientsIds.unshift(bun._id);
-        burgerIngredientsIds.push(bun._id);
+        if (bun) {
+            burgerIngredientsIds.unshift(bun._id);
+            burgerIngredientsIds.push(bun._id);
+        }
 
         return burgerIngredientsIds;
     }

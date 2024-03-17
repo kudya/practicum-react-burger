@@ -8,7 +8,7 @@ type TModalOverlayProps = {
 
 const ModalOverlay = ({children, onClose}: TModalOverlayProps): React.JSX.Element => {
     const onCloseOverlay = (e: SyntheticEvent<HTMLDivElement>) => {
-        if (e.target instanceof HTMLDivElement
+        if (e.target instanceof HTMLElement
             && !e.target.classList.contains(modalOverlayStyles.overlay)) {
             return;
         }

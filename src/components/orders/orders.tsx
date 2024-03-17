@@ -1,20 +1,34 @@
-import React from 'react';
-import ordersStyles from './orders.module.css'
+import React, { useEffect } from 'react';
+import ordersStyles from './orders.module.css';
+import {useDispatch, useSelector} from '../../services/store';
+import { connect, disconnect } from '../../services/actions/webSocket';
+
+import OrderCard from '../feed-orders/order-card/order-card';
+
+const FEED_ORDERS_PROFILE_URL = 'wss://norma.nomoreparties.space/orders';
 
 const Orders = (): React.JSX.Element => {
+    const dispatch = useDispatch();
+    const { data } = useSelector(store => store.feedOrdersProfile)
+
+    const accessToken = localStorage.getItem('accessToken')?.split(' ') ?? ''
+
+    const connectSocket = () => dispatch(connect(`${FEED_ORDERS_PROFILE_URL}?token=${accessToken[1]}`));
+    const disconnectSocket = () => dispatch(disconnect());
+
+    useEffect(() => {
+        connectSocket();
+
+        return () => {
+            disconnectSocket();
+        }
+    }, [])
+
     return (
-        <div className={`${ordersStyles.container} pt-30`}>
-            <p className='text text_type_digits-medium mb-6'>
-                🛠
-            </p>
-
-            <p className={`${ordersStyles.text} text text_type_main-medium text_color_inactive mb-6`}>
-                Скоро здесь будет страница или, возможно, целая космическая станция
-            </p>
-
-            <p className="text text_type_digits-medium">
-                🚀
-            </p>
+        <div className={`${ordersStyles.container} mt-10 pr-2`}>
+            {data?.orders?.map((order, index) => (
+                <OrderCard key={order._id} order={order}/>
+            ))}
         </div>
     );
 };

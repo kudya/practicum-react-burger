@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { useDrop } from 'react-dnd';
 import burgerConstructorStyles from './burger-constructor.module.css'
+import { useDispatch, useSelector } from '../../services/store';
 
 import { setBun, addIngredient, changeElementsOrder } from '../../services/reducers/burgerConstructor';
 
@@ -17,9 +17,7 @@ import {TConstructorIngredientData} from '../../utils/types';
 const BurgerConstructor = (): React.JSX.Element => {
     const dispatch = useDispatch();
 
-    // @ts-ignore
     const { user } = useSelector(store => store.auth)
-    // @ts-ignore
     const { bun, ingredients } = useSelector(store => store.burgerConstructor)
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -29,7 +27,7 @@ const BurgerConstructor = (): React.JSX.Element => {
     const totalPrice = useMemo(()  => {
         if (bun || ingredients.length) {
             return ingredients.reduce((total: number, ingredient: TConstructorIngredientData) => {
-                return total + ingredient.price
+                return total + ingredient?.price
             }, bun ? bun?.price * 2 : 0);
         }
     }, [bun, ingredients])
@@ -38,10 +36,8 @@ const BurgerConstructor = (): React.JSX.Element => {
         accept: 'ingredient',
         drop: (item ) => {
             if (item.type === 'bun') {
-                // @ts-ignore
                 dispatch(setBun(item));
             } else {
-                // @ts-ignore
                 dispatch(addIngredient(item));
             }
         },
@@ -52,7 +48,6 @@ const BurgerConstructor = (): React.JSX.Element => {
     }))
 
     const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-        // @ts-ignore
         dispatch(changeElementsOrder({dragIndex, hoverIndex}));
     }, [])
 
@@ -117,7 +112,7 @@ const BurgerConstructor = (): React.JSX.Element => {
             <div className={burgerConstructorStyles.footer}>
                 <div className={`${burgerConstructorStyles.price} mr-10`}>
                     <p className="text text_type_digits-medium mr-2">
-                        {totalPrice ?? 0}
+                        { `${totalPrice ?? 0}` }
                     </p>
 
                     <CurrencyIcon type="primary" />

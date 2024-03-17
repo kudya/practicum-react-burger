@@ -13,24 +13,26 @@ export type TIngredientData = {
     __v: number,
 }
 
+export type TOrder = {
+    createdAt: string,
+    ingredients: Array<TIngredientData>,
+    name: string,
+    number: number,
+    owner: {
+        createdAt: string,
+        email: string,
+        name: string,
+        updateAt: string,
+    },
+    price: number,
+    status: string,
+    updatedAt: string,
+    _id:string,
+}
+
 export type TOrderData = {
     name: string,
-    order: {
-        createdAt: string,
-        ingredients: Array<TIngredientData>,
-        name: string,
-        number: number,
-        owner: {
-            createdAt: string,
-            email: string,
-            name: string,
-            updateAt: string,
-        },
-        price: number,
-        status: string,
-        updatedAt: string,
-        _id:string,
-    }
+    order: TOrder
     success: boolean,
 }
 
@@ -50,3 +52,20 @@ export type TAuthData = {
     user: Pick<TUserData, 'email' |  'name'>,
     message?: string,
 }
+
+export type TFeedOrder = Pick<TOrder, '_id' | 'status' | 'name' | 'number' | 'createdAt' | 'updatedAt'> & {ingredients: Array<string>}
+
+export type TFeedOrders = {
+    success: boolean,
+    orders: Array<TFeedOrder>,
+    total?: number,
+    totalToday?: number,
+}
+
+export enum ORDER_STATUS {
+    Done = "Выполнен",
+    Pending = "Готовится",
+    Created = "Создан",
+    Unknown = "Статус неизвестен",
+}
+

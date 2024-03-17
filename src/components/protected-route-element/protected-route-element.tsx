@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from '../../services/store';
 
 type TProtectedRouteElementProps = {
     onlyUnAuth?: boolean,
@@ -11,9 +11,7 @@ const ProtectedRouteElement = ({ onlyUnAuth = false, component }: TProtectedRout
     // isAuthChecked это флаг, показывающий что проверка токена произведена
     // при этом результат этой проверки не имеет значения, важно только,
     // что сам факт проверки имел место.
-    // @ts-ignore
     const isAuthChecked = useSelector((store) => store.auth.isAuthChecked);
-    // @ts-ignore
     const user = useSelector((store) => store.auth.user);
 
     const location = useLocation();

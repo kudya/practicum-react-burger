@@ -1,9 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { makeOrder } from '../actions/order';
 
-const initialState = {
+export type TOrderStore = {
+    orderNumber: number | null,
+    loading: boolean,
+    error: string | null,
+}
+
+const initialState: TOrderStore = {
     orderNumber: null,
-    orderContent: [],
     loading: false,
     error: null,
 };
@@ -11,15 +16,7 @@ const initialState = {
 const orderSlice = createSlice({
     name: 'order',
     initialState,
-    reducers: {
-        clearIngredients: {
-            reducer: (state) => {
-                state.ingredients = [];
-                state.loading = false;
-                state.error = null;
-            },
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(makeOrder.pending, (state) => {
@@ -29,14 +26,12 @@ const orderSlice = createSlice({
             })
             .addCase(makeOrder.rejected, (state, action) => {
                 state.orderNumber = null;
-                state.orderName = null;
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при сборе заказа';
             })
             .addCase(makeOrder.fulfilled, (state, action) => {
                 state.loading = false;
                 state.orderNumber = action.payload.order.number;
-                state.orderName = action.payload.name;
             })
     }
 });

@@ -1,7 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { registerUser, login, logout } from '../actions/auth';
+import {TUserData} from "../../utils/types";
 
-const initialState = {
+export type TAuthStore = {
+    user: Pick<TUserData, "email" | "name"> | null,
+    isAuthChecked: boolean,
+    loading: boolean,
+    error: string | null,
+}
+
+const initialState: TAuthStore = {
     user: null,
     isAuthChecked: false,
     loading: false,
@@ -15,6 +23,7 @@ const authSlice = createSlice({
         setAuthChecked: (state, action) => {
             state.isAuthChecked = action.payload;
         },
+
         setUser: (state, action) => {
         state.user = action.payload;
         },
@@ -27,7 +36,7 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при регистрации';
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
@@ -39,7 +48,7 @@ const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при входе в аккаунт';
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false;
@@ -51,7 +60,7 @@ const authSlice = createSlice({
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.payload;
+                state.error = action.error.message ?? 'Произошла ошибка при выходе из аккаунта';
             })
             .addCase(logout.fulfilled, (state) => {
                 state.loading = false;
@@ -62,3 +71,6 @@ const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer;
 export const { setAuthChecked, setUser } = authSlice.actions;
+
+type TAuthActionCreators = typeof authSlice.actions;
+export type TAuthActions = ReturnType<TAuthActionCreators[keyof TAuthActionCreators]>
