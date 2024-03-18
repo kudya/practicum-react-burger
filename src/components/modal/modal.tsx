@@ -27,15 +27,23 @@ const Modal = ({children, title, onClose}: IModalProps) => {
     };
 
     return createPortal(
-        <div>
+        <div data-cy="modal">
             <ModalOverlay onClose={onClose}>
-                <div className={`${modalStyles.container} pt-10 pr-10 pb-15 pl-10`}>
+                <div
+                    className={`${modalStyles.container} pt-10 pr-10 pb-15 pl-10`}
+                    data-cy="modal-container"
+                >
                     <div className={modalStyles.header}>
                         {title && (
                             <h3 className="text text_type_main-large">{title}</h3>
                         )}
 
-                        <button className={modalStyles.close} type="button" onClick={onClose}>
+                        <button
+                            className={modalStyles.close}
+                            type="button"
+                            data-cy="modal-close-button"
+                            onClick={onClose}
+                        >
                             <CloseIcon type="primary" />
                         </button>
                     </div>

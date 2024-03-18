@@ -99,7 +99,7 @@ const BurgerIngredients = (): React.JSX.Element => {
             </div>
 
             <div onScroll={handleScroll} className={`${burgerIngredientsStyles.content} custom-scroll`}>
-                <div ref={bunsRef}>
+                <div ref={bunsRef} data-cy="buns-block">
                     <IngredientsList
                         ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.bun)}
                         counter={bunsCounter ?? {}}
@@ -107,7 +107,7 @@ const BurgerIngredients = (): React.JSX.Element => {
                     />
                 </div>
 
-                <div ref={saucesRef}>
+                <div ref={saucesRef} data-cy="sauces-block">
                     <IngredientsList
                         ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.sauce)}
                         counter={ingredientsCounter}
@@ -115,7 +115,7 @@ const BurgerIngredients = (): React.JSX.Element => {
                     />
                 </div>
 
-                <div ref={mainsRef}>
+                <div ref={mainsRef} data-cy="mains-block">
                     <IngredientsList
                         ingredients={ingredients?.filter((ingredient: TIngredientData) => ingredient.type === INGREDIENT_TYPES.main)}
                         counter={ingredientsCounter}
