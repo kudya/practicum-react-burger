@@ -3,7 +3,7 @@
 Проект "Космическая бургерная" (Stellar Burgers) по итогам [Курса "React-разработчик"](https://practicum.yandex.ru/react/) от Yandex.Practicum 
 
 ## URL
-- GitHub Pages: 
+- GitHub Pages: [https://kudya.github.io/practicum-react-burger/index.html](https://kudya.github.io/practicum-react-burger/index.html)
 
 ## Стек
 - React
