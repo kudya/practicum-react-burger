@@ -1,7 +1,7 @@
 describe('drag ingredients', () => {
     beforeEach(() => {
         cy.intercept('GET', 'ingredients', {fixture: 'ingredients'})
-        cy.visit('http://localhost:3000');
+        cy.visit('/');
     });
 
     it('should bun drag to constructor correctly', () => {
@@ -44,7 +44,7 @@ describe('drag ingredients', () => {
 describe('ingredients info modal', () => {
     beforeEach(() => {
         cy.intercept('GET', 'ingredients', {fixture: 'ingredients'})
-        cy.visit('http://localhost:3000');
+        cy.visit('/');
         cy.get('[data-cy="buns-block"] ul li').first().click();
     });
 
@@ -68,7 +68,6 @@ describe('ingredients info modal', () => {
         cy.get('[data-cy="modal-close-button" ]').click();
 
         cy.get('[data-cy="modal"]').should('not.exist');
-
     })
 
     it('modal should close correctly by press esc key', () => {
