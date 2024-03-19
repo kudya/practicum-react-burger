@@ -23,10 +23,18 @@ const IngredientDetails = (): React.JSX.Element => {
     }, [ingredients.length])
 
     return (
-        <div className={`${ingredientDetailsStyles.container} pr-15 pb-5 pl-15`}>
+        <div
+            className={`${ingredientDetailsStyles.container} pr-15 pb-5 pl-15`}
+            data-cy="ingredient-details"
+        >
             <img className="mb-4" width="480" height="240" src={ingredient?.image_large} alt={`${ingredient?.name ?? 'Ингредиент бургера'}.`} />
 
-            <p className="text text_type_main-medium mb-8">{ingredient?.name}</p>
+            <p
+                className="text text_type_main-medium mb-8"
+                data-cy="ingredient-name"
+            >
+                {ingredient?.name}
+            </p>
 
             <ul className={ingredientDetailsStyles['nutrition-list']}>
                 <li className={ingredientDetailsStyles['nutrition-item']}>
@@ -34,7 +42,10 @@ const IngredientDetails = (): React.JSX.Element => {
                         Калории,ккал
                     </p>
 
-                    <p className="text text_type_digits-default text_color_inactive">
+                    <p
+                        className="text text_type_digits-default text_color_inactive"
+                        data-cy="ingredient-calories"
+                    >
                         {ingredient?.calories}
                     </p>
                 </li>
@@ -44,7 +55,10 @@ const IngredientDetails = (): React.JSX.Element => {
                         Белки, г
                     </p>
 
-                    <p className="text text_type_digits-default text_color_inactive">
+                    <p
+                        className="text text_type_digits-default text_color_inactive"
+                        data-cy="ingredient-proteins"
+                    >
                         {ingredient?.proteins}
                     </p>
                 </li>
@@ -54,7 +68,10 @@ const IngredientDetails = (): React.JSX.Element => {
                         Жиры, г
                     </p>
 
-                    <p className="text text_type_digits-default text_color_inactive">
+                    <p
+                        className="text text_type_digits-default text_color_inactive"
+                        data-cy="ingredient-fat"
+                    >
                         {ingredient?.fat}
                     </p>
                 </li>
@@ -64,7 +81,10 @@ const IngredientDetails = (): React.JSX.Element => {
                         Углеводы, г
                     </p>
 
-                    <p className="text text_type_digits-default text_color_inactive">
+                    <p
+                        className="text text_type_digits-default text_color_inactive"
+                        data-cy="ingredient-carbohydrates"
+                    >
                         {ingredient?.carbohydrates}
                     </p>
                 </li>

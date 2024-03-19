@@ -15,7 +15,11 @@ const ConstructorPlaceholder = ({text, type}: IConstructorPlaceholderProps): Rea
     const styles = type ? (type === 'top' ? topStyles  : bottomStyles) : defaultStyles;
 
     return (
-        <div style={styles} className={constructorPlaceholderStyles.container}>
+        <div
+            style={styles}
+            className={constructorPlaceholderStyles.container}
+            data-cy="constructor-placeholder"
+        >
             <p className="text text_type_main-default">{text}</p>
         </div>
     );

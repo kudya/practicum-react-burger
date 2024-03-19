@@ -36,7 +36,7 @@ const authSlice = createSlice({
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message ?? 'Произошла ошибка при регистрации';
+                state.error = action.error?.message ?? 'Произошла ошибка при регистрации';
             })
             .addCase(registerUser.fulfilled, (state, action) => {
                 state.loading = false;
@@ -48,7 +48,7 @@ const authSlice = createSlice({
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message ?? 'Произошла ошибка при входе в аккаунт';
+                state.error = action.error?.message ?? 'Произошла ошибка при входе в аккаунт';
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.loading = false;
@@ -60,7 +60,7 @@ const authSlice = createSlice({
             })
             .addCase(logout.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error.message ?? 'Произошла ошибка при выходе из аккаунта';
+                state.error = action.error?.message ?? 'Произошла ошибка при выходе из аккаунта';
             })
             .addCase(logout.fulfilled, (state) => {
                 state.loading = false;

@@ -16,7 +16,11 @@ const ModalOverlay = ({children, onClose}: TModalOverlayProps): React.JSX.Elemen
         onClose();
     }
     return (
-        <div className={modalOverlayStyles.overlay} onClick={onCloseOverlay}>
+        <div
+            className={modalOverlayStyles.overlay}
+            data-cy="modal-overlay"
+            onClick={onCloseOverlay}
+        >
             {children}
         </div>
     );

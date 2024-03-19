@@ -63,8 +63,8 @@ const BurgerConstructor = (): React.JSX.Element => {
 
     return (
         <div className="pt-25">
-            <div ref={dropRef} className="mb-10 pl-4">
-                <div className="pl-8 mb-4">
+            <div ref={dropRef} className="mb-10 pl-4" data-cy="drop-container">
+                <div className="pl-8 mb-4" data-cy="bun-top-constructor-block">
                     {bun ? (
                         <ConstructorElement
                             type="top"
@@ -79,7 +79,10 @@ const BurgerConstructor = (): React.JSX.Element => {
                 </div>
 
                 {ingredients.length ? (
-                    <ul className={`${burgerConstructorStyles.list} custom-scroll mt-2 mb-2`}>
+                    <ul
+                        className={`${burgerConstructorStyles.list} custom-scroll mt-2 mb-2`}
+                        data-cy="ingredient-constructor-list"
+                    >
                         {ingredients.map((item: TConstructorIngredientData, index: number) => {
                             return (
                                 <li key={item.key}>
@@ -89,12 +92,18 @@ const BurgerConstructor = (): React.JSX.Element => {
                         })}
                     </ul>
                 ) : (
-                    <div className="pl-8">
+                    <div
+                        className="pl-8"
+                        data-cy="ingredient-constructor-placeholder"
+                    >
                         <ConstructorPlaceholder text={'Выберите начинку'} />
                     </div>
                 )}
 
-                <div className="pl-8 mt-4">
+                <div
+                    className="pl-8 mt-4"
+                    data-cy="bun-bottom-constructor-block"
+                >
                     {bun ? (
                         <ConstructorElement
                             type="bottom"

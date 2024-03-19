@@ -27,7 +27,7 @@ const orderSlice = createSlice({
             .addCase(makeOrder.rejected, (state, action) => {
                 state.orderNumber = null;
                 state.loading = false;
-                state.error = action.error.message ?? 'Произошла ошибка при сборе заказа';
+                state.error = action.error?.message ?? 'Произошла ошибка при сборе заказа';
             })
             .addCase(makeOrder.fulfilled, (state, action) => {
                 state.loading = false;
